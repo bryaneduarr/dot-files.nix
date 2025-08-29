@@ -9,9 +9,6 @@
       save = 10000; # Limit of history.
       path = "${config.home.homeDirectory}/.zsh_history"; # The directory will be created automatically by home-manager.
 
-     # setopt HIST_FCNTL_LOCK.
-      fcntlLocks = true;
-      
       # setopt APPEND_HISTORY.
       append = true;
 
@@ -38,7 +35,7 @@
 
       # unsetopt EXTENDED_HISTORY
       extended = false;
-    }
+    };
 
     # All of the plugins will be managed by 'zplug'.
     zplug = {
@@ -49,8 +46,9 @@
         { name = "zsh-users/zsh-syntax-highlighting"; }
         { name = "jeffreytse/zsh-vi-mode"; }
         { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
-	{ name = "zsh-users/zsh-completions"; }
-	{ name = "zsh-users/zsh-autosuggestions"; }
+	      { name = "zsh-users/zsh-completions"; }
+	      { name = "zsh-users/zsh-autosuggestions"; }
+	      { name = "Aloxaf/fzf-tab"; }
       ];
     };
   
@@ -63,6 +61,16 @@
   
       # Set the default editor to Neovim.
       export EDITOR=nvim
+
+      # Preview directories for `cd` with eza tree and colors.
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --level=2 $realpath'
+
+      
+      # Preview files for a list of commands using bat.
+      # The pattern  in here will match any of the commands listed.
+      zstyle ':(fzf-tab:complete:nvim:*|fzf-tab:complete:nano:*|fzf-tab:complete:cat:*|fzf-tab:complete:bat:*|fzf-tab:complete:less:*)' fzf-preview 'bat --color=always --style=numbers,changes --line-range=:500 $realpath'
+
+      export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --info=inline"
 
       # Source the Powerlevel10k theme and configuration.
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
