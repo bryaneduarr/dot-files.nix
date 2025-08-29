@@ -24,7 +24,9 @@
       system = "x86_64-linux"; # Using the 'x86_64' system architecture.
 
       modules = [
-        ./configuration.nix # Import the main 'configuration.nix' of this configuration.
+        # Import modular system configuration here 'modules'.
+        ./modules/system.nix # General system configuration for NixOS.
+	      ./modules/users.nix  # User specific configuration for the NixOS.
 
         home-manager.nixosModules.home-manager # Import the home-manager configuration to manage user-specific configurations.
 
@@ -36,9 +38,10 @@
 
           home-manager.useGlobalPkgs = true; # Tell home-manager to use the global Nix packages that are available in the system.
           home-manager.useUserPackages = true; # Enable using user-specific packages with home-manager.
-          home-manager.users.bryaneduarr = import ./home.nix; # Enable the configuration we have in our system to be used with home-manager.
 
-	  programs.nix-ld.enable = true;
+          home-manager.users.bryaneduarr = import ./home/default.nix; # Enable the configuration we have in our system to be used with home-manager.
+
+	        programs.nix-ld.enable = true;
         }
       ];
     };

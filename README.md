@@ -14,10 +14,26 @@ This configuration includes:
 
 ```structure
 nix-config/
-├── configuration.nix   # System-level NixOS configuration.
-├── flake.nix           # Main flake configuration. 
-├── home.nix            # User-specific Home-manager configuration.
+├── flake.nix        # Main flake configuration with inputs and outputs
+├── flake.lock       # Lock file for reproducible builds
+├── README.md        # This documentation
+├── modules/         # System-level configuration modules
+│   ├── system.nix   # Core system configuration
+│   └── users.nix    # User management configuration
+└── home/            # Home Manager configurations
+    ├── default.nix  # Main home configuration entry point
+    ├── packages.nix # User package definitions
+    └── programs/    # Program-specific configurations
+        ├── git.nix  # Git configuration
+        └── zsh.nix  # Zsh shell configuration
 ```
+
+### Key Components
+
+- **flake.nix**: Defines the flake inputs (nixpkgs, home-manager, nixos-wsl) and system configuration.
+- **modules/system.nix**: Core system settings including experimental features and WSL2 configuration.
+- **modules/users.nix**: User management, sudo configuration, and user definitions.
+- **home/**: User-specific Home Manager configurations organized by components.
 
 ## How to Use This Configuration
 
@@ -53,8 +69,8 @@ nix-config/
 
 2. When using with different user settings, update the configuration:
    - In `flake.nix`: Change `wsl.defaultUser` to your desired username.
-   - In `configuration.nix`: Update the user configuration with your details.
-   - In `home.nix`: Update Git username and email.
+   - In `modules/users.nix`: Update the user configuration with your details.
+   - In `home/programs/git.nix`: Update Git username and email.
 
 ### Step 3: Apply the Configuration
 
@@ -103,17 +119,21 @@ sudo nixos-rebuild switch --flake ~/dot-files.nix#nixos
 
 ### Adding New Packages
 
-1. **System packages**: Add to `configuration.nix` in the appropriate section.
-2. **User packages**: Add to the `home.packages` list in `home.nix`.
+1. **System packages**: Add to the appropriate module in `modules/`.
+2. **User packages**: Add to `home/packages.nix`.
 
-Adding a new user package:
+Example of adding a new user package to `home/packages.nix`:
 
 ```nix
-home.packages = with pkgs; [
-  # Existing packages...
-  git
-  neovim
-  # Add new package here
-  firefox
-];
+{ pkgs, ... }:
+
+{
+  home.packages = with pkgs; [
+    # Existing packages...
+    git
+    neovim
+    # Add new package here
+    firefox
+  ];
+}
 ```
