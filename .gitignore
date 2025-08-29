@@ -1,0 +1,25 @@
+# Nix build results and caches.
+/result
+/result-*
+/.build-result
+
+# Nix store temp files.
+.nix-channels
+.nix-defexpr
+.nix-profile
+
+# Nix-flakes lock file can be committed or ignored. Here is ignored.
+flake.lock
+
+# Editor temporary files.
+*.swp
+*~
+*.bak
+
+# OS-generated files.
+.DS_Store
+Thumbs.db
+
+# Sensitive or local secrets.
+secret.nix
+local-config.nix
