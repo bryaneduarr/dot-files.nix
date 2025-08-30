@@ -11,6 +11,7 @@
 
     # Programs installed configuration will be placed here.
     ./programs/git.nix
+    ./programs/yazi.nix
     ./programs/zsh.nix
   ];
 }

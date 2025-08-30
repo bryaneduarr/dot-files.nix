@@ -70,7 +70,17 @@
       # The pattern  in here will match any of the commands listed.
       zstyle ':(fzf-tab:complete:nvim:*|fzf-tab:complete:nano:*|fzf-tab:complete:cat:*|fzf-tab:complete:bat:*|fzf-tab:complete:less:*)' fzf-preview 'bat --color=always --style=numbers,changes --line-range=:500 $realpath'
 
+      # Fzf default handler for the preview and other options.
       export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --info=inline"
+
+      # Yazi function to stay in the directory and activate with 'y'.
+      y() {
+	      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	      yazi "$@" --cwd-file="$tmp"
+	      IFS= read -r -d "" cwd < "$tmp"
+	      [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	      rm -f -- "$tmp"
+      }
 
       # Source the Powerlevel10k theme and configuration.
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
