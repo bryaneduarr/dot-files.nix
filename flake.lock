@@ -92,8 +92,25 @@
         "home-manager": "home-manager",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
+        "tmux-tpm": "tmux-tpm",
         "yazi-flavors": "yazi-flavors",
         "yazi-plugins": "yazi-plugins"
+      }
+    },
+    "tmux-tpm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677502767,
+        "narHash": "sha256-hW8mfwB8F9ZkTQ72WQp/1fy8KL1IIYMZBtZYIwZdMQc=",
+        "owner": "tmux-plugins",
+        "repo": "tpm",
+        "rev": "99469c4a9b1ccf77fade25842dc7bafbc8ce9946",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tpm",
+        "type": "github"
       }
     },
     "yazi-flavors": {

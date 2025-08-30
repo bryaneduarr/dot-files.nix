@@ -28,9 +28,15 @@
       url = "github:yazi-rs/flavors"; # Pointing to the yazi flavors GitHub repository.
       flake = false; # This repository does not have a flake.nix file.
     };
+
+    # Using TPM (Tmux Plugin Manager) as custom flake.
+    tmux-tpm = {
+      url = "github:tmux-plugins/tpm"; # Pointing to the TPM GitHub repository.
+      flake = false; # This repository does not have a flake.nix file.
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, yazi-plugins, yazi-flavors, ... }: {
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, yazi-plugins, yazi-flavors, tmux-tpm, ... }: {
     # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux"; # Using the 'x86_64' system architecture.
@@ -63,7 +69,7 @@
           home-manager.useUserPackages = true; # Enable using user-specific packages with home-manager.
 
           home-manager.extraSpecialArgs = {
-            inherit yazi-plugins yazi-flavors; # Pass the yazi 'yazi-plugins', and 'yazi-flavors' to the home-manager configurations.
+            inherit yazi-plugins yazi-flavors tmux-tpm; # Pass to the home-manager custom plugins and configurations.
           };
 
           home-manager.users.bryaneduarr = import ./home/default.nix; # Enable the configuration we have in our system to be used with home-manager.

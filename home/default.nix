@@ -13,5 +13,6 @@
     ./programs/git.nix
     ./programs/yazi.nix
     ./programs/zsh.nix
+    ./programs/tmux.nix
   ];
 }

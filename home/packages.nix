@@ -15,5 +15,6 @@
     neovim
     wget
     yazi
+    tmux
   ];
 }
