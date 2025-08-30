@@ -7,10 +7,13 @@
     # My custom tmux configuration, similar to a .tmux.conf file.
     extraConfig = ''
       unbind r
-      bind r source-file ~/config/tmux/tmux.conf
+      bind r source-file ~/.config/tmux/tmux.conf
       
-      # Fix color.
+      # Enhanced terminal overrides for true color support
       set-option -sa terminal-overrides ",xterm*:Tc"
+
+      # Enable true color support
+      set -g default-terminal "tmux-256color"
       
       # Enable mouse.
       set -g mouse on

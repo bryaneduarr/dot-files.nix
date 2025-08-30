@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     bat # A 'cat' clone with highlighting.
     btop
+    bun
     cmake
     curl
     eza # Modern replacement for ls.
@@ -13,6 +14,8 @@
     gcc
     git
     neovim
+    nodejs_24
+    pnpm
     wget
     yazi
     tmux
