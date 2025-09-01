@@ -1,5 +1,5 @@
 # This file manages all of the user's packages.
-{ pkgs, ... }:
+{ pkgs, neovim-nightly-overlay, ... }:
 
 {
   # Install all of the user packages in here.
@@ -13,9 +13,11 @@
     fzf
     gcc
     git
-    neovim
+    lazygit
+    neovim-nightly-overlay.packages.${pkgs.system}.default # Neovim nightly build with latest features.
     nodejs_24
     pnpm
+    posting
     wget
     yazi
     tmux
