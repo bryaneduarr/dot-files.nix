@@ -10,3 +10,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
+-- This will automatically 'refresh' the buffer when editing from other source.
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})

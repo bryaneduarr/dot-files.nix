@@ -221,5 +221,6 @@ end
 -- Configure the minimal statusline:
 -- Left: filename and buffer flags
 -- Right: word/char count, diagnostics, LSP progress, git status
+-- Call the avante configuration to show the current selected model in the status bar.
 vim.opt.statusline =
-  "%{v:lua.file_name_component()} %h%m%r%= %{v:lua.lsp_progress()} %{v:lua.vcs_status()} %{v:lua.diagnostics_component()} Ln:%l|Col:%c"
+  "%{v:lua.file_name_component()} %h%m%r%= %{v:lua.lsp_progress()} %{v:lua.vcs_status()} %{v:lua.diagnostics_component()} %{v:lua.require('config.avante-model').get_model_status()} Ln:%l|Col:%c"

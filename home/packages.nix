@@ -10,12 +10,15 @@
     cmake
     curl
     eza # Modern replacement for ls.
+    fd
     fzf
     gcc
     git
+    gnumake
     lazygit
     neovim-nightly-overlay.packages.${pkgs.system}.default # Neovim nightly build with latest features.
     nodejs_24
+    opencode
     pnpm
     posting
     wget

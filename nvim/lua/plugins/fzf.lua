@@ -3,22 +3,6 @@ return {
   dependencies = { "nvim-mini/mini.icons" },
   config = function()
     local fzf = require("fzf-lua")
-    
-    -- Dynamically set ignore patterns based on the current directory.
-    local function get_file_ignore_patterns()
-      local base_patterns = {
-        "package%-lock%.json",
-        "pnpm%-lock%.yaml",
-        "bun.lock",
-        "%.obsidian.vimrc",
-        "node_modules/",
-        "%.smart%-env/",
-        "%.next/",
-        "%.obsidian/",
-        "%.git/",
-      }
-      return base_patterns
-    end
 
     fzf.setup({
       -- Global settings.
@@ -119,21 +103,42 @@ return {
       },
     })
 
-    -- Keymaps (matching your Telescope keybindings)
     local keymap = vim.keymap
 
-    keymap.set("n", "<leader>ff", function() fzf.files() end, { desc = "Fuzzy find files in cwd" })
-    keymap.set("n", "<leader>fg", function() fzf.live_grep() end, { desc = "Fuzzy find string in cwd" })
-    keymap.set("n", "<leader>fb", function() fzf.buffers() end, { desc = "Find opened buffers" })
-    keymap.set("n", "<leader>fs", function() fzf.git_status() end, { desc = "Fuzzy find git status" })
-    keymap.set("n", "<leader>fc", function() fzf.git_commits() end, { desc = "Find git commits" })
-    keymap.set("n", "<leader>fr", function() fzf.oldfiles() end, { desc = "Recently open files / old files" })
-    keymap.set("n", "<leader>f?", function() fzf.keymaps() end, { desc = "Find keymaps" })
-    
+    keymap.set("n", "<leader>ff", function()
+      fzf.files()
+    end, { desc = "Fuzzy find files in cwd" })
+    keymap.set("n", "<leader>fg", function()
+      fzf.live_grep()
+    end, { desc = "Fuzzy find string in cwd" })
+    keymap.set("n", "<leader>fb", function()
+      fzf.buffers()
+    end, { desc = "Find opened buffers" })
+    keymap.set("n", "<leader>fs", function()
+      fzf.git_status()
+    end, { desc = "Fuzzy find git status" })
+    keymap.set("n", "<leader>fc", function()
+      fzf.git_commits()
+    end, { desc = "Find git commits" })
+    keymap.set("n", "<leader>fr", function()
+      fzf.oldfiles()
+    end, { desc = "Recently open files / old files" })
+    keymap.set("n", "<leader>f?", function()
+      fzf.keymaps()
+    end, { desc = "Find keymaps" })
+
     -- Additional useful fzf-lua specific keymaps
-    keymap.set("n", "<leader>fh", function() fzf.help_tags() end, { desc = "Find help tags" })
-    keymap.set("n", "<leader>ft", function() fzf.colorschemes() end, { desc = "Find colorschemes with preview" })
-    keymap.set("n", "<leader>fq", function() fzf.quickfix() end, { desc = "Find quickfix entries" })
-    keymap.set("n", "<leader>fl", function() fzf.loclist() end, { desc = "Find location list entries" })
+    keymap.set("n", "<leader>fh", function()
+      fzf.help_tags()
+    end, { desc = "Find help tags" })
+    keymap.set("n", "<leader>ft", function()
+      fzf.colorschemes()
+    end, { desc = "Find colorschemes with preview" })
+    keymap.set("n", "<leader>fq", function()
+      fzf.quickfix()
+    end, { desc = "Find quickfix entries" })
+    keymap.set("n", "<leader>fl", function()
+      fzf.loclist()
+    end, { desc = "Find location list entries" })
   end,
 }

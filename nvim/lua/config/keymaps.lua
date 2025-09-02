@@ -72,4 +72,4 @@ vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { noremap = true, sil
 vim.keymap.set("n", "<leader>gde", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close diffview" })
 
 -- Map 'Shift + m' to show LSP hover info.
-vim.keymap.set('n', 'M', vim.lsp.buf.hover, { desc = "LSP Hover Info" })
+vim.keymap.set("n", "M", vim.lsp.buf.hover, { desc = "LSP Hover Info" })
