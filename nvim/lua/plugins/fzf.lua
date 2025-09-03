@@ -40,9 +40,16 @@ return {
         file_icons = true,
         color_icons = true,
         git_icons = true,
-        -- Apply ignore patterns.
-        fd_opts = "--color=never --type f --hidden --follow --exclude .git --exclude node_modules --exclude .next --exclude .obsidian --exclude .smart-env",
-        find_opts = [[-type f -not -path '*/\.git/*' -not -path '*/node_modules/*' -not -path '*/.next/*' -not -path '*/.obsidian/*' -not -path '*/.smart-env/*' -printf '%P\n']],
+        exclude = {
+          "node_modules",
+          ".env",
+          ".env.*",
+          ".turbo",
+          "dist",
+          ".next",
+          "build",
+          "out",
+        },
       },
       -- Grep configuration.
       grep = {
