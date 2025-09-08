@@ -14,7 +14,7 @@
 
       # setopt HIST_IGNORE_DUPS.
       ignoreDups = true;
-      
+
       # setopt HIST_IGNORE_ALL_DUPS.
       ignoreAllDups = true;
 
@@ -37,6 +37,16 @@
       extended = false;
     };
 
+    shellAliases = {
+      ll = "exa -l";
+      la = "exa -la";
+      ls = "exa";
+      cat = "bat";
+      grep = "rg";
+      find = "fd";
+      top = "btop";
+    };
+
     # All of the plugins will be managed by 'zplug'.
     zplug = {
       enable = true; # Enable zplug.
@@ -51,21 +61,20 @@
 	      { name = "Aloxaf/fzf-tab"; }
       ];
     };
-  
+
     # Inline shell customizations (functions, exports, prompts, etc.).
     initContent = ''
       # Function to update and rebuild the system using flakes.
       update() {
         sudo nixos-rebuild switch --flake ~/nix-config/#nixos "$@"
       }
-  
+
       # Set the default editor to Neovim.
       export EDITOR=nvim
 
       # Preview directories for `cd` with eza tree and colors.
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --level=2 $realpath'
 
-      
       # Preview files for a list of commands using bat.
       # The pattern  in here will match any of the commands listed.
       zstyle ':(fzf-tab:complete:nvim:*|fzf-tab:complete:nano:*|fzf-tab:complete:cat:*|fzf-tab:complete:bat:*|fzf-tab:complete:less:*)' fzf-preview 'bat --color=always --style=numbers,changes --line-range=:500 $realpath'
