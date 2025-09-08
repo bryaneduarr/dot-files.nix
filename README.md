@@ -2,37 +2,52 @@
 
 Declarative [NixOS](https://nixos.org/) dot-files configuration for running NixOS on [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install). This configuration provides a development environment in a declarative manner.
 
+## Quick Setup
+
+Simply run the included setup script to install this configuration automatically:
+
+```shell
+./setup.sh
+```
+
+The script will guide you through architecture selection and configuration options for your system.
+
 ## Overview
 
 This configuration includes:
 
-- **NixOS System Configuration**: Core system settings for WSL2.
+- **Nix and NixOS System Configuration**: Core system settings for WSL2.
 - **Home Manager Integration**: User-specific package and dotfile management.
+- **My Personal Neovim Configuration**: Configured development environment.
 - **WSL2 Optimizations**: Proper integration with Windows host system thanks to [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
 
 ## Configuration Structure
 
 ```structure
 nix-config/
-├── flake.nix        # Main flake configuration with inputs and outputs
-├── flake.lock       # Lock file for reproducible builds
-├── README.md        # This documentation
-├── modules/         # System-level configuration modules
-│   ├── system.nix   # Core system configuration
-│   └── users.nix    # User management configuration
-└── home/            # Home Manager configurations
-    ├── default.nix  # Main home configuration entry point
-    ├── packages.nix # User package definitions
-    └── programs/    # Program-specific configurations
-        ├── git.nix  # Git configuration
-        └── zsh.nix  # Zsh shell configuration
+├── flake.nix          # Main flake configuration with inputs and outputs
+├── flake.lock         # Lock file for reproducible builds
+├── setup.sh           # Automated installation script
+├── README.md          # This documentation
+├── modules/           # System-level configuration modules
+│   ├── system.nix     # Core system configuration
+│   └── users.nix      # User management configuration
+├── system-configs/    # Architecture-specific configurations
+└── home/              # Home Manager configurations
+    ├── default.nix    # Main home configuration entry point
+    ├── packages.nix   # User package definitions
+    └── programs/      # Program-specific configurations
+        ├── git.nix    # Git configuration
+        └── zsh.nix    # Zsh shell configuration
 ```
 
 ### Key Components
 
 - **flake.nix**: Defines the flake inputs (nixpkgs, home-manager, nixos-wsl) and system configuration.
+- **setup.sh**: Interactive script for automatic installation and configuration.
 - **modules/system.nix**: Core system settings including experimental features and WSL2 configuration.
 - **modules/users.nix**: User management, sudo configuration, and user definitions.
+- **system-configs/**: Architecture-specific configurations for different systems.
 - **home/**: User-specific Home Manager configurations organized by components.
 
 ## How to Use This Configuration
