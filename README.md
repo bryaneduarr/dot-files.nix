@@ -1,6 +1,10 @@
-# Dot-Files NixOS WSL2
+# Dot-Files for Nix and NixOS
 
-Declarative [NixOS](https://nixos.org/) dot-files configuration for running NixOS on [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install). This configuration provides a development environment in a declarative manner.
+Declarative [NixOS](https://nixos.org/) dot-files configuration for running NixOS on [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and Nix with [home-manager](https://github.com/nix-community/home-manager). This configuration provides a development environment in a declarative manner.
+
+Currently tested on:
+- NixOS with WSL2 (x64)
+- Ubuntu 24.04 with WSL2 (x64, arm64)
 
 ## Quick Setup
 
@@ -10,7 +14,7 @@ Simply run the included setup script to install this configuration automatically
 ./setup.sh
 ```
 
-The script will guide you through architecture selection and configuration options for your system.
+The script will guide through architecture selection and configuration options for your system.
 
 ## Overview
 
@@ -18,8 +22,8 @@ This configuration includes:
 
 - **Nix and NixOS System Configuration**: Core system settings for WSL2.
 - **Home Manager Integration**: User-specific package and dotfile management.
-- **My Personal Neovim Configuration**: Configured development environment.
-- **WSL2 Optimizations**: Proper integration with Windows host system thanks to [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
+- **Personal Neovim Configuration**: Configured development environment.
+- **WSL2 Addition**: Integration with Windows host system thanks to [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
 
 ## Configuration Structure
 
@@ -120,7 +124,7 @@ nix-config/
 
 ### Updating the System
 
-The configuration includes a convenient `update` function. Simply run:
+The configuration includes an `update` function. Simply run:
 
 ```shell
 update
