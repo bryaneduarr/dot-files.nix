@@ -4,6 +4,7 @@
 {
   # Install all of the user packages in here.
   home.packages = with pkgs; [
+    awscli2
     bat # A 'cat' clone with highlighting.
     btop
     bun

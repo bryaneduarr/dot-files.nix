@@ -38,6 +38,7 @@
     };
 
     shellAliases = {
+      l = "exa";
       ll = "exa -l";
       la = "exa -la";
       ls = "exa";
