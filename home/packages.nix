@@ -1,5 +1,5 @@
 # This file manages all of the user's packages.
-{ pkgs, neovim-nightly-overlay, ... }:
+{ pkgs, neovim-nightly-overlay, lib, ... }:
 
 {
   # Install all of the user packages in here.
@@ -22,7 +22,9 @@
     opencode
     pnpm
     posting
+    ripgrep
     wget
+    xclip
     yazi
     tmux
   ];
