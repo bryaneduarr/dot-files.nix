@@ -40,5 +40,6 @@ return {
         insert_tag = "<C-l>",
       },
     },
+    legacy_commands = false,
   },
 }

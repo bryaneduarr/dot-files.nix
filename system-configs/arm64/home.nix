@@ -31,6 +31,7 @@ in
   # List of packages to be installed for the user on Ubuntu x64.
   # Uses 'pkgsWithOverlay' so that overlayed packages are available.
   home.packages = with pkgsWithOverlay; [
+    awscli2
     bat
     btop
     bun
@@ -44,12 +45,13 @@ in
     gnumake
     lazygit
     nodejs_24
-    opencode
     pnpm
     posting
+    ripgrep
     tmux
     unzip
     wget
+    xclip
     yazi
     pkgs.zsh-powerlevel10k
   ];
@@ -100,6 +102,7 @@ in
 
     # Custom aliases for ZSH.
     shellAliases = {
+      l = "exa";
       ll = "exa -l";
       la = "exa -la";
       ls = "exa";
