@@ -67,7 +67,7 @@
     initContent = ''
       # Function to update and rebuild the system using flakes.
       update() {
-        sudo nixos-rebuild switch --flake ~/nix-config/#nixos "$@"
+        sudo nixos-rebuild switch --flake ~/dot-files.nix/#nixos "$@"
       }
 
       # Set the default editor to Neovim.

@@ -19,7 +19,6 @@
     lazygit
     neovim-nightly-overlay.packages.${pkgs.system}.default # Neovim nightly build with latest features.
     nodejs_24
-    opencode
     pnpm
     posting
     ripgrep
