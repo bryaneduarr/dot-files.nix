@@ -59,8 +59,17 @@ end, { desc = "Escape, clear hlsearch, and stop snippet session", expr = true })
 -- escape and save changes.
 vim.keymap.set({ "s", "i", "n", "v" }, "<C-s>", "<esc>:w<cr>", { desc = "Exit insert mode and save changes." })
 
+-- Map 'Shift + m' to show LSP hover info.
+vim.keymap.set("n", "M", vim.lsp.buf.hover, { desc = "LSP Hover Info" })
+
 -- Open oil.
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Oil.nvim buffer." })
 
--- Map 'Shift + m' to show LSP hover info.
-vim.keymap.set("n", "M", vim.lsp.buf.hover, { desc = "LSP Hover Info" })
+-- open neogit
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { noremap = true, silent = true, desc = "Open neogit" })
+
+-- open diffview
+vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { noremap = true, silent = true, desc = "Open diffview" })
+
+-- close diffview when inside of it
+vim.keymap.set("n", "<leader>gde", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close diffview" })

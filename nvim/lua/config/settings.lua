@@ -20,10 +20,10 @@ vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
 
 -- Show whitespace characters
-vim.opt.list = true
+-- vim.opt.list = true
 
 -- Characters used when making spaces or tabs
-vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
+-- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
 
 -- Show line numbers
 vim.opt.number = true
