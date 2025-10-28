@@ -64,12 +64,3 @@ vim.keymap.set("n", "M", vim.lsp.buf.hover, { desc = "LSP Hover Info" })
 
 -- Open oil.
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Oil.nvim buffer." })
-
--- open neogit
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { noremap = true, silent = true, desc = "Open neogit" })
-
--- open diffview
-vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { noremap = true, silent = true, desc = "Open diffview" })
-
--- close diffview when inside of it
-vim.keymap.set("n", "<leader>gde", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close diffview" })
