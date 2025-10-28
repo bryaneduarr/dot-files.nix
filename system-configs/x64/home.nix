@@ -1,18 +1,6 @@
 # Entry point for home-manager configuration for the user.
 # This file defines all user-level settings, packages, and program configurations for Ubuntu x64 systems.
 # It is intended to be imported by the main system configuration to set up the user's environment.
-let
-  # Overlay to provide the latest Neovim nightly build from the Nix community.
-  neovimNightlyOverlay = import (builtins.fetchTarball {
-    url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-  });
-
-  # Import the Nixpkgs package set for the current system architecture.
-  pkgsWithOverlay = import <nixpkgs> {
-    system = builtins.currentSystem or "x86_64-linux";
-    overlays = [ neovimNightlyOverlay ];
-  };
-in
 { config, pkgs, ... }:
 
 {
@@ -30,11 +18,12 @@ in
 
   # List of packages to be installed for the user on Ubuntu x64.
   # Uses 'pkgsWithOverlay' so that overlayed packages are available.
-  home.packages = with pkgsWithOverlay; [
+  home.packages = with pkgs; [
     awscli2
     bat
     btop
     bun
+    chromium
     cmake
     curl
     eza
@@ -59,7 +48,6 @@ in
   # Configure Neovim as the main text editor for the user.
   programs.neovim = {
     enable = true;
-    package = pkgsWithOverlay.neovim; # Uses the Nightly build from the overlay for the latest features and bug fixes.
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -73,9 +61,9 @@ in
   # Configure Git for the user.
   programs.git = {
     enable = true;
-    userName = "bryaneduarr";
-    userEmail = "bryaneduarr@gmail.com";
-    extraConfig = {
+    settings = {
+      user.name = "bryaneduarr";
+      user.email = "bryaneduarr@gmail.com";
       init.defaultBranch = "main"; # Use 'main' as the default branch for new repositories.
       core.editor = "nvim"; # Use Neovim for commit messages and other editing tasks.
     };
