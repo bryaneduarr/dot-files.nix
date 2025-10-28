@@ -16,12 +16,17 @@
     gcc
     git
     gnumake
+    google-chrome
+    jq
     lazygit
     neovim-nightly-overlay.packages.${pkgs.system}.default # Neovim nightly build with latest features.
     nodejs_24
+    nodePackages.npm-check-updates
     pnpm
     posting
+    redis
     ripgrep
+    uv
     wget
     xclip
     yazi
