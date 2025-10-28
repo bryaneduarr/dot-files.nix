@@ -30,4 +30,17 @@ return {
   {
     "sainnhe/gruvbox-material",
   },
+  {
+    "projekt0n/github-nvim-theme",
+    name = "github-theme",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- vim.cmd("colorscheme github_dark_dimmed")
+      -- Transparency for the color-scheme.
+      -- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+      -- Transparency for inactive windows.
+      -- vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
+    end,
+  },
 }
