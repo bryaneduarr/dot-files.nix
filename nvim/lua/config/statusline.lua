@@ -1,20 +1,20 @@
--- Track the LSP progress.
+-- Track the LSP progress..
 local progress_status = {}
 
--- Spinner animation frames
+-- Spinner animation frames.
 local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 local spinner_index = 1
 
--- Timer for spinner animation
+-- Timer for spinner animation.
 local spinner_timer = nil
 
--- Get icons from config
+-- Get icons from config.
 local icons = require("config.icons")
 
--- Get mini.icons for file type icons
+-- Get mini.icons for file type icons.
 local mini_icons = require("mini.icons")
 
--- Show filename with file type icon (minimal approach)
+-- Show filename with file type icon (minimal approach).
 _G.file_name_component = function()
   local filename = vim.fn.expand("%:t")
 
@@ -34,11 +34,11 @@ _G.file_name_component = function()
   end
 end
 
--- Word and character count component
+-- Word and character count component.
 _G.word_count_component = function()
   local mode = vim.api.nvim_get_mode().mode
 
-  -- Check if we're in visual mode (selection)
+  -- Check if we're in visual mode (selection).
   if mode == "v" or mode == "V" or mode == "" then
     local start_pos = vim.fn.getpos("'<")
     local end_pos = vim.fn.getpos("'>")
@@ -46,11 +46,11 @@ _G.word_count_component = function()
     return string.format("%dL", lines_selected)
   end
 
-  -- Get buffer content
+  -- Get buffer content.
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local content = table.concat(lines, "\n")
 
-  -- Count words and characters
+  -- Count words and characters.
   local word_count = 0
   for word in content:gmatch("%S+") do
     word_count = word_count + 1
@@ -61,10 +61,10 @@ _G.word_count_component = function()
   return string.format("Wor:%d|Char:%d", word_count, char_count)
 end
 
--- Store last diagnostic component value to avoid flicker in insert mode
+-- Store last diagnostic component value to avoid flicker in insert mode.
 local last_diagnostic_component = ""
 
--- Simple VCS status showing branch and changes with colors
+-- Simple VCS status showing branch and changes with colors.
 _G.vcs_status = function()
   local git_info = vim.b.gitsigns_status_dict
 
@@ -74,10 +74,10 @@ _G.vcs_status = function()
 
   local status_parts = {}
 
-  -- Branch name with icon
+  -- Branch name with icon.
   table.insert(status_parts, string.format("%s", git_info.head))
 
-  -- Changes count (added, modified, removed) with colors
+  -- Changes count (added, modified, removed) with colors.
   local changes = {}
   if git_info.added and git_info.added > 0 then
     table.insert(changes, string.format("%%#StatuslineGitAdded#+%d%%*", git_info.added))
@@ -195,22 +195,22 @@ _G.diagnostics_component = function()
 
   local parts = {}
 
-  -- Add errors with red color
+  -- Add errors
   if counts.ERROR > 0 then
     table.insert(parts, string.format("%%#StatuslineDiagnosticError#%s %d%%*", icons.diagnostics.ERROR, counts.ERROR))
   end
 
-  -- Add warnings with yellow color
+  -- Add warnings
   if counts.WARN > 0 then
     table.insert(parts, string.format("%%#StatuslineDiagnosticWarn#%s %d%%*", icons.diagnostics.WARN, counts.WARN))
   end
 
-  -- Add info with blue color
+  -- Add info
   if counts.INFO > 0 then
     table.insert(parts, string.format("%%#StatuslineDiagnosticInfo#%s %d%%*", icons.diagnostics.INFO, counts.INFO))
   end
 
-  -- Add hints with cyan color
+  -- Add hints
   if counts.HINT > 0 then
     table.insert(parts, string.format("%%#StatuslineDiagnosticHint#%s %d%%*", icons.diagnostics.HINT, counts.HINT))
   end
@@ -219,100 +219,100 @@ _G.diagnostics_component = function()
   return last_diagnostic_component
 end
 
--- Define highlight groups for each mode, diagnostics, and git changes
+-- Define highlight groups for each mode, diagnostics, and git changes.
 local function setup_highlights()
   -- Mode highlights
-  -- Normal mode - Blue
+  -- Normal mode
   vim.api.nvim_set_hl(0, "StatuslineModeNormal", {
     fg = "#282828",
     bg = "#83a598",
     bold = true,
   })
 
-  -- Insert mode - Green
+  -- Insert mode
   vim.api.nvim_set_hl(0, "StatuslineModeInsert", {
     fg = "#282828",
     bg = "#b8bb26",
     bold = true,
   })
 
-  -- Visual mode - Orange
+  -- Visual mode
   vim.api.nvim_set_hl(0, "StatuslineModeVisual", {
     fg = "#282828",
     bg = "#fe8019",
     bold = true,
   })
 
-  -- Replace mode - Red
+  -- Replace mode
   vim.api.nvim_set_hl(0, "StatuslineModeReplace", {
     fg = "#282828",
     bg = "#fb4934",
     bold = true,
   })
 
-  -- Command mode - Purple
+  -- Command mode
   vim.api.nvim_set_hl(0, "StatuslineModeCommand", {
     fg = "#282828",
     bg = "#d3869b",
     bold = true,
   })
 
-  -- Terminal mode - Cyan
+  -- Terminal mode
   vim.api.nvim_set_hl(0, "StatuslineModeTerminal", {
     fg = "#282828",
     bg = "#8ec07c",
     bold = true,
   })
 
-  -- Diagnostic highlights (softer, pastel colors matching mode style)
-  -- Error - Soft Red (matching gruvbox style)
+  -- Diagnostic highlights
+  -- Error
   vim.api.nvim_set_hl(0, "StatuslineDiagnosticError", {
     fg = "#fb4934",
     bold = true,
   })
 
-  -- Warning - Soft Yellow (matching gruvbox style)
+  -- Warning
   vim.api.nvim_set_hl(0, "StatuslineDiagnosticWarn", {
     fg = "#fabd2f",
     bold = true,
   })
 
-  -- Info - Soft Blue (matching gruvbox style)
+  -- Info
   vim.api.nvim_set_hl(0, "StatuslineDiagnosticInfo", {
     fg = "#83a598",
     bold = true,
   })
 
-  -- Hint - Soft Cyan (matching gruvbox style)
+  -- Hint
   vim.api.nvim_set_hl(0, "StatuslineDiagnosticHint", {
     fg = "#8ec07c",
     bold = true,
   })
 
-  -- Git change highlights (softer, pastel colors matching mode style)
-  -- Added - Soft Green (matching gruvbox style)
+  -- Git change highlights
+  -- Added
   vim.api.nvim_set_hl(0, "StatuslineGitAdded", {
     fg = "#b8bb26",
     bold = true,
   })
 
-  -- Modified - Soft Orange (matching gruvbox style)
+  -- Modified
   vim.api.nvim_set_hl(0, "StatuslineGitChanged", {
     fg = "#fe8019",
     bold = true,
   })
 
-  -- Removed - Soft Red (matching gruvbox style)
+  -- Removed
   vim.api.nvim_set_hl(0, "StatuslineGitRemoved", {
     fg = "#fb4934",
     bold = true,
   })
 end
 
--- Call this function to set up highlights
+-- Call this function to set up highlights.
 setup_highlights()
 
--- Mode names and their corresponding highlight groups
+-- Mode names and their corresponding highlight groups.
 local mode_map = {
   ["n"] = { "NORMAL", "StatuslineModeNormal" },
   ["i"] = { "INSERT", "StatuslineModeInsert" },
@@ -332,7 +332,7 @@ local mode_map = {
   ["t"] = { "TERMINAL", "StatuslineModeTerminal" },
 }
 
--- Function to get mode component with color
+-- Function to get mode component with color.
 _G.mode_component = function()
   local current_mode = vim.api.nvim_get_mode().mode
   local mode_info = mode_map[current_mode] or { "UNKNOWN", "StatuslineModeNormal" }
@@ -345,7 +345,7 @@ _G.mode_component = function()
   return string.format("%%#%s# %s %%*", mode_hl, mode_name)
 end
 
--- Build a function that returns the complete statusline string
+-- Function to return the complete statusline string.
 _G.statusline_builder = function()
   local mode = mode_component()
   local filename = file_name_component()
