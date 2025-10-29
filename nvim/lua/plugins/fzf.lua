@@ -108,6 +108,13 @@ return {
           end,
         },
       },
+      -- Complete path configuration with icons
+      complete_path = {
+        prompt = "Path❯ ",
+        file_icons = true,
+        color_icons = true,
+        git_icons = true,
+      },
     })
 
     local keymap = vim.keymap
@@ -147,5 +154,22 @@ return {
     keymap.set("n", "<leader>fl", function()
       fzf.loclist()
     end, { desc = "Find location list entries" })
+
+    -- Insert file path with preview and icons
+    keymap.set("n", "<leader>fp", function()
+      fzf.complete_path({
+        file_icons = true,
+        color_icons = true,
+        git_icons = true,
+        previewer = "builtin",
+        winopts = {
+          preview = {
+            hidden = "nohidden",
+            layout = "horizontal",
+            horizontal = "right:60%",
+          },
+        },
+      })
+    end, { noremap = true, silent = true, desc = "Insert file/dir path" })
   end,
 }

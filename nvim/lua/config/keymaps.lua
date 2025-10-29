@@ -64,3 +64,6 @@ vim.keymap.set("n", "M", vim.lsp.buf.hover, { desc = "LSP Hover Info" })
 
 -- Open oil.
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Oil.nvim buffer." })
+
+-- Open Neogit
+vim.keymap.set("n", "<leader>gg", "<CMD>Neogit<CR>", { desc = "Open Neogit plugin." })
