@@ -59,7 +59,7 @@
     fzf # a command-line fuzzy finder.
     ffmpegthumbnailer # for generating video thumbnails.
     imagemagick # a suite for image manipulation.
-    poppler_utils # PDF utilities (e.g., pdftotext).
+    poppler-utils # PDF utilities (e.g., pdftotext).
     mpv # a media player.
     p7zip # 7z archive tool.
     unrar # tool for extracting RAR archives.
