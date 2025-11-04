@@ -8,11 +8,13 @@
     bat # A 'cat' clone with highlighting.
     btop
     bun
+    clang-tools
     cmake
     curl
     eza # Modern replacement for ls.
     fd
     fzf
+    gdb
     gcc
     git
     gnumake
@@ -27,6 +29,7 @@
     redis
     ripgrep
     uv
+    valgrind
     wget
     xclip
     yazi
