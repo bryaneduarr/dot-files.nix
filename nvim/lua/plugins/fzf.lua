@@ -1,6 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
-  dependencies = { "nvim-mini/mini.icons" },
+  dependencies = { "nvim-tree/nvim-web-devicons", "nvim-mini/mini.icons" },
   config = function()
     local fzf = require("fzf-lua")
 
@@ -40,16 +40,7 @@ return {
         file_icons = true,
         color_icons = true,
         git_icons = true,
-        exclude = {
-          "node_modules",
-          ".env",
-          ".env.*",
-          ".turbo",
-          "dist",
-          ".next",
-          "build",
-          "out",
-        },
+        fd_opts = "--color=never --type f --type l --hidden --no-ignore --exclude .git --exclude node_modules --exclude .turbo --exclude dist --exclude .next --exclude build --exclude out",
       },
       -- Grep configuration.
       grep = {
@@ -59,7 +50,7 @@ return {
         git_icons = true,
         file_icons = true,
         color_icons = true,
-        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden --follow --glob '!.git/' --glob '!node_modules/' --glob '!.next/' --glob '!.obsidian/' --glob '!.smart-env/'",
+        rg_opts = '--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden --follow --glob "!.git/" --glob "!node_modules/" --glob "!.next/" --glob "!.obsidian/" --glob "!.smart-env/"',
       },
       -- Buffers configuration.
       buffers = {
