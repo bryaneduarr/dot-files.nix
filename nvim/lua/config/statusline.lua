@@ -221,6 +221,9 @@ end
 
 -- Define highlight groups for each mode, diagnostics, and git changes.
 local function setup_highlights()
+  -- Make the default StatusLine transparent
+  vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
+
   -- Mode highlights
   -- Normal mode
   vim.api.nvim_set_hl(0, "StatuslineModeNormal", {
