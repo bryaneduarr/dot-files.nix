@@ -24,13 +24,13 @@ return {
           args = { "--config-path", vim.fn.stdpath("config") .. "/stylua.toml", "-" },
         },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        timeout_ms = 1000,
-      },
-      format_after_save = {
-        lsp_format = "first",
-      },
+      -- format_on_save = {
+      --   lsp_fallback = true,
+      --   timeout_ms = 1000,
+      -- },
+      -- format_after_save = {
+      --   lsp_format = "first",
+      -- },
     })
 
     vim.keymap.set({ "n", "v" }, "<leader>lf", function()
