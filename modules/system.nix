@@ -11,6 +11,8 @@
   security.sudo.enable = true; # Enable sudo command in the system.
   security.sudo.wheelNeedsPassword = true; # Every wheel user 'with sudo privileges' will be prompted to use the password.
 
+  time.timeZone = "America/El_Salvador";
+
   # Install PostgreSQL CLI tools system-wide.
   environment.systemPackages = with pkgs; [
     postgresql

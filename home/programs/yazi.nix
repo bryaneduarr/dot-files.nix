@@ -15,6 +15,9 @@
           { id = "git"; name = "*/"; run = "git"; } # Default git fetcher.
         ];
       };
+      mgr = {
+        show_hidden = true;
+      };
     };
 
     # In here add all the keymaps from Yazi. https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
