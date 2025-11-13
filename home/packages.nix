@@ -35,8 +35,4 @@
     yazi
     tmux
   ];
-
-  home.activation.installOpencode = lib.hm.dag.entryAfter ["linkGeneration"] ''
-    ${pkgs.bun}/bin/bun install -g "opencode-ai@latest"
-  '';
 }
