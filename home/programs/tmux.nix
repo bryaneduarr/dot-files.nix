@@ -27,6 +27,14 @@
       bind-key k select-pane -U
       bind-key l select-pane -R
 
+      # set vi-mode
+      set-window-option -g mode-keys vi
+
+      # Terminal ouput selection
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
       # Set colors for the bottom bar to transparent.
       set -g status-style bg=default
 

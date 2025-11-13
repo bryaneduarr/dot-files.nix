@@ -21,7 +21,7 @@
     google-chrome
     jq
     lazygit
-    neovim-nightly-overlay.packages.${pkgs.system}.default # Neovim nightly build with latest features.
+    neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default # Neovim nightly build with latest features.
     nodejs_24
     nodePackages.npm-check-updates
     pnpm
@@ -35,4 +35,8 @@
     yazi
     tmux
   ];
+
+  home.activation.installOpencode = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    ${pkgs.bun}/bin/bun install -g "opencode-ai@latest"
+  '';
 }
