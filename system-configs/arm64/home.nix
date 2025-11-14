@@ -44,6 +44,19 @@
     pkgs.zsh-powerlevel10k
   ];
 
+  # Yazi file manager configuration (copied from @home/programs/yazi.nix)
+  programs.yazi = {
+    enable = true; # Enable Yazi program.
+    enableZshIntegration = true; # Enable integration with ZSH shell.
+    # Here pass all the configuration settings for Yazi. https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/yazi-default.toml
+    settings = {
+      # Configurations for the plugins here.
+      mgr = {
+        show_hidden = true;
+      };
+    };
+  };
+
   # Configure Neovim as the main text editor for the user.
   programs.neovim = {
     enable = true;
@@ -186,6 +199,14 @@
       bind-key j select-pane -D
       bind-key k select-pane -U
       bind-key l select-pane -R
+
+      # set vi-mode
+      set-window-option -g mode-keys vi
+
+      # Terminal ouput selection
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
       set -g status-style bg=default # Make the status bar background transparent.
 
