@@ -7,6 +7,7 @@ return {
   version = "1.*",
   opts = {
     completion = {
+      menu = { auto_show = false },
       list = {
         -- Insert items while navigating the completion list.
         selection = { preselect = false, auto_insert = true },

@@ -16,6 +16,8 @@ return {
         yaml = { "prettierd" },
         markdown = { "prettierd" },
         lua = { "stylua" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
         -- For filetypes without a formatter:
         ["_"] = { "trim_whitespace", "trim_newlines" },
       },
@@ -23,7 +25,11 @@ return {
         stylua = {
           args = { "--config-path", vim.fn.stdpath("config") .. "/stylua.toml", "-" },
         },
+        clang_format = {
+          prepend_args = { "--style=file", "--fallback-style=LLVM" },
+        },
       },
+
       -- format_on_save = {
       --   lsp_fallback = true,
       --   timeout_ms = 1000,

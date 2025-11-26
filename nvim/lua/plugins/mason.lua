@@ -23,12 +23,17 @@ return {
         "tailwindcss-language-server", -- tailwindcss
         "lua-language-server", -- lua_ls
         "emmet-ls", -- emmet_ls
+        "clangd",
 
         -- Formatters
         "stylua", -- lua formatter.
         "prettier", -- js/ts/html/css formatter (for monorepos).
         "prettierd", -- js/ts/html/css formatter (daemon version).
         "eslint_d", -- js/ts linter.
+        "clang-format",
+
+        -- Linters
+        "cpplint", -- Google C++ style checker
       },
     })
   end,

@@ -7,6 +7,14 @@ return {
       "saghen/blink.cmp",
     },
     config = function()
+      vim.lsp.config.clangd = {
+        cmd = {
+          "clangd",
+          "--query-driver=/etc/profiles/per-user/bryaneduarr/bin/gcc",
+          "--background-index",
+        },
+      }
+
       -- Enable LSP servers using the new built-in method.
       vim.lsp.enable({
         "ts_ls",
@@ -15,6 +23,7 @@ return {
         "tailwindcss",
         "lua_ls",
         "emmet_ls",
+        "clangd",
       })
 
       -- Keyboard mapping utility.
@@ -67,6 +76,11 @@ return {
 
           opts.desc = "Restart LSP"
           keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+          opts.desc = "Go to type definition"
+          keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, opts)
+          opts.desc = "List references"
+          keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
         end,
       })
     end,
