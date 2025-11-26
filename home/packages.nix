@@ -26,6 +26,7 @@
     nodePackages.npm-check-updates
     pnpm
     posting
+    python3
     redis
     ripgrep
     uv

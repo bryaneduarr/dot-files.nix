@@ -84,5 +84,6 @@ vim.api.nvim_set_hl(0, "netrwMarkFile", { link = "Search" })
 
 -- Folding.
 vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.wo.foldtext = ""
