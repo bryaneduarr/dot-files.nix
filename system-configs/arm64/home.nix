@@ -35,6 +35,7 @@
     nodejs_24
     pnpm
     posting
+    python3
     ripgrep
     tmux
     unzip
