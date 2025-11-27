@@ -76,8 +76,11 @@
       # Add bun global bin directory to PATH.
       export PATH="$HOME/.bun/bin:$PATH"
 
+      # Add .local PATH.
+      export PATH=/home/bryaneduarr/.local/bin:$PATH
+
       # Add timezone desired.
-      export TZ=/usr/share/zoneinfo/America/El_Salvador
+      export TZ="America/El_Salvador"
 
       # Preview directories for `cd` with eza tree and colors.
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --level=2 $realpath'

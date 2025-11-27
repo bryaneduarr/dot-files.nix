@@ -7,7 +7,7 @@
 
     # Manage user configurations with home-manager.
     home-manager = {
-      url = "github:nix-community/home-manager"; # Pointing to home-manager GitHub repository.
+      url = "github:nix-community/home-manager?ref=master"; # Pointing to home-manager GitHub repository, using master branch to match nixpkgs unstable.
 
       inputs.nixpkgs.follows = "nixpkgs"; # Ensure home-manager follows the same version as the 'nixpkgs' to prevent mismatches.
     };
