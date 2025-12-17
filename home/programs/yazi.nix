@@ -23,12 +23,12 @@
     # In here add all the keymaps from Yazi. https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
     keymap = { };
 
-    # Theme configuration for Yazi.
-    theme = {
-      flavor = {
-        dark = "catppuccin-mocha"; # Use for dark-mode the catppuccin-mocha flavor from yazi. https://github.com/yazi-rs/flavors/tree/main/catppuccin-mocha.yazi
-      };
-    };
+    # # Theme configuration for Yazi.
+    # theme = {
+    #   flavor = {
+    #     dark = "catppuccin-mocha"; # Use for dark-mode the catppuccin-mocha flavor from yazi. https://github.com/yazi-rs/flavors/tree/main/catppuccin-mocha.yazi
+    #   };
+    # };
 
     # Plugin configuration for Yazi. Here add all of the plugins with names and paths.
     # The name '${yazi-plugins}' for example, is coming from the flake.nix file where these custom flakes are defined.
@@ -48,10 +48,10 @@
   # It ensures that the file "catppuccin-mocha.yazi" from the "yazi-flavors" package
   # is linked or copied to the ".config/yazi/flavors/" directory in the user's home.
   home.file = {
-    ".config/yazi/flavors/catppuccin-mocha.yazi" = {
-      source = "${yazi-flavors}/catppuccin-mocha.yazi";
-      recursive = true;
-    };
+    # ".config/yazi/flavors/catppuccin-mocha.yazi" = {
+    #   source = "${yazi-flavors}/catppuccin-mocha.yazi";
+    #   recursive = true;
+    # };
   };
 
   # These packages enhance file management and media handling capabilities in the user's environment when using yazi.

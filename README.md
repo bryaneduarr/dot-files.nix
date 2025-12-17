@@ -3,6 +3,7 @@
 Declarative [NixOS](https://nixos.org/) dot-files configuration for running NixOS on [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and Nix with [home-manager](https://github.com/nix-community/home-manager). This configuration provides a development environment in a declarative manner.
 
 Currently tested on:
+
 - NixOS with WSL2 (x64)
 - Ubuntu 24.04 with WSL2 (x64, arm64)
 

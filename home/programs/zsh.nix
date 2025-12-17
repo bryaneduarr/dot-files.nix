@@ -46,6 +46,8 @@
       grep = "rg";
       find = "fd";
       top = "btop";
+      c = "clear";
+      ff = "fastfetch";
     };
 
     # All of the plugins will be managed by 'zplug'.
@@ -65,8 +67,11 @@
 
     # Inline shell customizations (functions, exports, prompts, etc.).
     initContent = ''
+      # Ensure zplug log directory exists (prevents log error in tmux/WSL).
+      mkdir -p ~/.zplug/log
+
       # Function to update and rebuild the system using flakes.
-      update() {
+      nrs() {
         sudo nixos-rebuild switch --flake ~/dot-files.nix/#nixos "$@"
       }
 

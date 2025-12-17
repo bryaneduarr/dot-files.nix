@@ -12,6 +12,7 @@
     cmake
     curl
     eza # Modern replacement for ls.
+    fastfetch
     fd
     fzf
     gdb
