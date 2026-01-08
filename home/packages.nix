@@ -22,19 +22,23 @@
     google-chrome
     jq
     lazygit
+    lsof
     neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default # Neovim nightly build with latest features.
     nodejs_24
     nodePackages.npm-check-updates
+    openssl
     pnpm
     posting
     python3
     redis
     ripgrep
+    ssm-session-manager-plugin # Session manager plugin for aws.
     uv
     valgrind
     wget
     xclip
     yazi
     tmux
+    tree
   ];
 }
