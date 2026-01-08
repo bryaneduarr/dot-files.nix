@@ -20,7 +20,7 @@ vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
 
 -- Show whitespace characters
--- vim.opt.list = true
+vim.opt.list = true
 
 -- Characters used when making spaces or tabs
 -- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
@@ -62,7 +62,7 @@ vim.opt.spelllang = { "en" }
 vim.opt.completeopt = { "menuone", "popup", "noinsert" }
 
 -- Use rounded borders for windows
-vim.opt.winborder = "rounded"
+vim.opt.winborder = "single"
 
 -- Enable filetype detection, plugins, and indentation
 vim.cmd.filetype("plugin indent on")
