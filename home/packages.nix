@@ -1,5 +1,5 @@
 # This file manages all of the user's packages.
-{ pkgs, neovim-nightly-overlay, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Install all of the user packages in here.
@@ -19,11 +19,10 @@
     gcc
     git
     gnumake
-    google-chrome
     jq
     lazygit
     lsof
-    neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default # Neovim nightly build with latest features.
+    neovim
     nodejs_24
     nodePackages.npm-check-updates
     openssl

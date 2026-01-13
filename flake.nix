@@ -34,14 +34,9 @@
       url = "github:tmux-plugins/tpm"; # Pointing to the TPM GitHub repository.
       flake = false; # This repository does not have a flake.nix file.
     };
-
-    # Neovim nightly overlay from the community.
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay"; # Pointing to the neovim-nightly-overlay GitHub repository.
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, yazi-plugins, yazi-flavors, tmux-tpm, neovim-nightly-overlay, ... }: {
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, yazi-plugins, yazi-flavors, tmux-tpm, ... }: {
     # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux"; # Using the 'x86_64' system architecture.
@@ -63,7 +58,6 @@
         # Configure nixpkgs to allow unfree packages and apply overlays.
         ({ config, ... }: {
           nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = [ neovim-nightly-overlay.overlays.default ];
         })
 
         {
@@ -75,7 +69,7 @@
           home-manager.useUserPackages = true; # Enable using user-specific packages with home-manager.
 
           home-manager.extraSpecialArgs = {
-            inherit yazi-plugins yazi-flavors tmux-tpm neovim-nightly-overlay; # Pass to the home-manager custom plugins and configurations.
+            inherit yazi-plugins yazi-flavors tmux-tpm; # Pass to the home-manager custom plugins and configurations.
           };
 
           home-manager.users.bryaneduarr = import ./home/default.nix; # Enable the configuration we have in our system to be used with home-manager.
