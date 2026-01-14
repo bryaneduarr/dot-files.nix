@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   home.activation.copyNvim = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -20,4 +20,22 @@
       echo "-- Empty Neovim configuration" > "$HOME/.config/nvim/init.lua"
     fi
   '';
+
+  home.activation.installNvimSpellEs =
+    lib.hm.dag.entryAfter ["linkGeneration"] ''
+      SPELL_DIR="$HOME/.config/nvim/spell"
+      mkdir -p "$SPELL_DIR"
+
+      if [ ! -f "$SPELL_DIR/es.utf-8.spl" ]; then
+        ${pkgs.curl}/bin/curl -L \
+          https://ftp.nluug.nl/pub/vim/runtime/spell/es.utf-8.spl \
+          -o "$SPELL_DIR/es.utf-8.spl"
+      fi
+
+      if [ ! -f "$SPELL_DIR/es.utf-8.sug" ]; then
+        ${pkgs.curl}/bin/curl -L \
+          https://ftp.nluug.nl/pub/vim/runtime/spell/es.utf-8.sug \
+          -o "$SPELL_DIR/es.utf-8.sug"
+      fi
+    '';
 }
