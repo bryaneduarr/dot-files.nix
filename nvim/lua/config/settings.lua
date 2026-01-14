@@ -56,7 +56,12 @@ vim.opt.termguicolors = true
 vim.opt.spell = true
 
 -- Set spell checking languages to Spanish and English, Neovim will use dictionaries for both languages to check spelling.
-vim.opt.spelllang = { "en" }
+vim.opt.spelllang = { "en_us"}
+
+vim.opt.spellfile = {
+  vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
+  -- vim.fn.stdpath("config") .. "/spell/es.utf-8.add",
+}
 
 -- Options for completion menu
 vim.opt.completeopt = { "menuone", "popup", "noinsert" }

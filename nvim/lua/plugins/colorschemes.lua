@@ -57,6 +57,11 @@ return {
     config = function()
       -- require("koda").setup({ transparent = true })
       vim.cmd("colorscheme koda")
+
+      -- Set spell highlighting after colorscheme loads.
+      vim.api.nvim_set_hl(0, "SpellBad", { underline = true })
+      vim.api.nvim_set_hl(0, "SpellCap", { underline = true })
+      vim.api.nvim_set_hl(0, "SpellRare", { underline = true })
     end,
   },
 }
