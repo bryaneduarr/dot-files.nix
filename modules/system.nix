@@ -24,6 +24,9 @@
     package = pkgs.postgresql;
   };
 
+  # Enable Docker.
+  virtualisation.docker.enable = true;
+
   # NixOS version configuration state always to the latest.
   system.stateVersion = "25.05";
 }

@@ -8,7 +8,7 @@
       bryaneduarr = {
         isNormalUser = true; # Standard normal user.
         description = "Bryan Eduardo"; # Just name and second name.
-        extraGroups = [ "wheel" "networkmanager" ]; # Allow this user to have 'sudo' privileges with 'wheel' and network permissions.
+        extraGroups = [ "wheel" "networkmanager" "docker" ]; # Allow this user to have 'sudo' privileges with 'wheel' and network permissions.
         group = "bryaneduarr"; # The group will be the same as the name.
         home = "/home/bryaneduarr"; # Home directory of the user.
         createHome = true; # Create a home directory if it doesn't exist.

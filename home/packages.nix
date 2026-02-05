@@ -11,6 +11,7 @@
     clang-tools
     cmake
     curl
+    docker
     eza # Modern replacement for ls.
     fastfetch
     fd
@@ -31,6 +32,7 @@
     python3
     redis
     ripgrep
+    socat
     ssm-session-manager-plugin # Session manager plugin for aws.
     uv
     valgrind
