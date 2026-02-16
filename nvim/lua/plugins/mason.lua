@@ -24,6 +24,7 @@ return {
         "lua-language-server", -- lua_ls
         "emmet-ls", -- emmet_ls
         "clangd",
+        "nil", -- Nix
 
         -- Formatters
         "stylua", -- lua formatter.

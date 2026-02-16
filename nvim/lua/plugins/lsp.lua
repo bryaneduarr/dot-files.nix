@@ -24,6 +24,7 @@ return {
         "lua_ls",
         "emmet_ls",
         "clangd",
+        "nil_ls",
       })
 
       -- Keyboard mapping utility.

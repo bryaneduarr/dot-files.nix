@@ -18,6 +18,7 @@ return {
         lua = { "stylua" },
         c = { "clang_format" },
         cpp = { "clang_format" },
+        nix = { "nixfmt" },
         -- For filetypes without a formatter:
         ["_"] = { "trim_whitespace", "trim_newlines" },
       },

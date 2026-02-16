@@ -11,6 +11,7 @@ return {
       typescriptreact = { "eslint_d" },
       c = { "cpplint" },
       cpp = { "cpplint" },
+      nix = { "statix", "deadnix" },
     }
 
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

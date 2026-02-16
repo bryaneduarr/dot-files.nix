@@ -4,6 +4,8 @@
   programs.yazi = {
     enable = true; # Enable Yazi program.
 
+    shellWrapperName = "y";
+
     enableZshIntegration = true; # Enable integration with ZSH shell.
 
     # Here pass all the configuration settings for Yazi. https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/yazi-default.toml

@@ -8,6 +8,7 @@
     bat # A 'cat' clone with highlighting.
     btop
     bun
+    cargo
     clang-tools
     cmake
     curl
@@ -24,6 +25,7 @@
     lazygit
     lsof
     neovim
+    nil
     nodejs_24
     nodePackages.npm-check-updates
     openssl
