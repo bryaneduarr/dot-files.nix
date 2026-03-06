@@ -4,6 +4,17 @@ return {
   "Mofiqul/vscode.nvim",
   "Yazeed1s/oh-lucy.nvim",
   {
+    "sainnhe/everforest",
+    name = "everforest",
+    config = function(_, _)
+      vim.cmd.colorscheme("everforest")
+      -- Transparency for the color-scheme.
+      vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+      -- Transparency for inactive windows.
+      vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
+    end,
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     config = function(_, _)
@@ -20,11 +31,11 @@ return {
       variant = "default",
     },
     config = function(_, _)
-      vim.cmd.colorscheme("oldworld")
+      -- vim.cmd.colorscheme("oldworld")
       -- Transparency for the color-scheme.
-      vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+      -- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
       -- Transparency for inactive windows.
-      vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
+      -- vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
     end,
   },
   {

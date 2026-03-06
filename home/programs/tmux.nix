@@ -49,14 +49,20 @@
       # Tmux dotbar background colorscheme style of the custom tmux bar theme.
       set -g @tmux-dotbar-bg "default"
 
-      # Tmux dotbar prefix colorscheme.
-      set -g @tmux-dotbar-fg-prefix "#cba6f7"
+      # Tmux dotbar prefix highlight in orange pastel
+      set -g @tmux-dotbar-fg-prefix "#FAB387"
 
       # Tmux dotbar activate right side.
       set -g @tmux-dotbar-right true
 
       # Tmux dotbar time, this is why the initial is commented.
-      set -g @tmux-dotbar-status-right "%H:%M %d-%b-%y"
+      set -g @tmux-dotbar-status-right "%H:%M"
+
+      # Windows next to session with | separator
+      set -g @tmux-dotbar-window-status-separator "|"
+      set -g @tmux-dotbar-left true
+      set -g @tmux-dotbar-justify "left"
+      set -g window-status-separator ""
 
       # Resurrect settings.
       set -g @continuum-restore 'on'
