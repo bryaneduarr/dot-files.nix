@@ -1,7 +1,5 @@
 # Central point file for the home-manager for the user.
-{ config, pkgs, ... }:
-
-{
+_: {
   # Link this 'stateVersion' with the one on the 'configuration.nix' file.
   home.stateVersion = "25.05";
 

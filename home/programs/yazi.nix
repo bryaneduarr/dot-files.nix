@@ -1,4 +1,8 @@
-{ config, pkgs, yazi-plugins, yazi-flavors, ... }:
+{
+  pkgs,
+  yazi-plugins,
+  ...
+}:
 
 {
   programs.yazi = {
@@ -13,8 +17,16 @@
       # Configurations for the plugins here.
       plugin = {
         prepend_fetchers = [
-          { id = "git"; name = "*"; run = "git"; } # Register git fetchers ahead of defaults. This is for the plugin git to work correctly.
-          { id = "git"; name = "*/"; run = "git"; } # Default git fetcher.
+          {
+            id = "git";
+            name = "*";
+            run = "git";
+          } # Register git fetchers ahead of defaults. This is for the plugin git to work correctly.
+          {
+            id = "git";
+            name = "*/";
+            run = "git";
+          } # Default git fetcher.
         ];
       };
       mgr = {

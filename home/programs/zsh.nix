@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   programs.zsh = {
     enable = true; # Enable ZSH here too, it is also enabled in the 'configuration.nix' file.
@@ -58,57 +57,63 @@
       plugins = [
         { name = "zsh-users/zsh-syntax-highlighting"; }
         { name = "jeffreytse/zsh-vi-mode"; }
-        { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
-	      { name = "zsh-users/zsh-completions"; }
-	      { name = "zsh-users/zsh-autosuggestions"; }
-	      { name = "Aloxaf/fzf-tab"; }
+        {
+          name = "romkatv/powerlevel10k";
+          tags = [
+            "as:theme"
+            "depth:1"
+          ];
+        }
+        { name = "zsh-users/zsh-completions"; }
+        { name = "zsh-users/zsh-autosuggestions"; }
+        { name = "Aloxaf/fzf-tab"; }
       ];
     };
 
     # Inline shell customizations (functions, exports, prompts, etc.).
     initContent = ''
-      # Ensure zplug log directory exists (prevents log error in tmux/WSL).
-      mkdir -p ~/.zplug/log
+            # Ensure zplug log directory exists (prevents log error in tmux/WSL).
+            mkdir -p ~/.zplug/log
 
-      # Function to update and rebuild the system using flakes.
-      nrs() {
-        sudo nixos-rebuild switch --flake ~/dot-files.nix/#nixos "$@"
-      }
+            # Function to update and rebuild the system using flakes.
+            nrs() {
+              sudo nixos-rebuild switch --flake ~/dot-files.nix/#nixos "$@"
+            }
 
-      # Set the default editor to Neovim.
-      export EDITOR=nvim
+            # Set the default editor to Neovim.
+            export EDITOR=nvim
 
-      # Add bun global bin directory to PATH.
-      export PATH="$HOME/.bun/bin:$PATH"
+            # Add bun global bin directory to PATH.
+            export PATH="$HOME/.bun/bin:$PATH"
 
-      # Add .local PATH.
-      export PATH=/home/bryaneduarr/.local/bin:$PATH
+            # Add .local PATH.
+            export PATH=/home/bryaneduarr/.local/bin:$PATH
 
-      # Add timezone desired.
-      export TZ="America/El_Salvador"
+            # Add timezone desired.
+            export TZ="America/El_Salvador"
 
-      # Preview directories for `cd` with eza tree and colors.
-      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --level=2 $realpath'
+            # Preview directories for `cd` with eza tree and colors.
+            zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --level=2 $realpath'
 
-      # Preview files for a list of commands using bat.
-      # The pattern  in here will match any of the commands listed.
-      zstyle ':(fzf-tab:complete:nvim:*|fzf-tab:complete:nano:*|fzf-tab:complete:cat:*|fzf-tab:complete:bat:*|fzf-tab:complete:less:*)' fzf-preview 'bat --color=always --style=numbers,changes --line-range=:500 $realpath'
+            # Preview files for a list of commands using bat.
+            # The pattern  in here will match any of the commands listed.
+            zstyle ':(fzf-tab:complete:nvim:*|fzf-tab:complete:nano:*|fzf-tab:complete:cat:*|fzf-tab:complete:bat:*|fzf-tab:complete:less:*)' fzf-preview 'bat --color=always --style=numbers,changes --line-range=:500 $realpath'
 
-      # Fzf default handler for the preview and other options.
-      export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --info=inline"
+            # Fzf default handler for the preview and other options.
+            export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --info=inline"
 
-      # Yazi function to stay in the directory and activate with 'y'.
-      y() {
-	      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	      yazi "$@" --cwd-file="$tmp"
-	      IFS= read -r -d "" cwd < "$tmp"
-	      [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	      rm -f -- "$tmp"
-      }
+            # Yazi function to stay in the directory and activate with 'y'.
+            y() {
+      	      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+      	      yazi "$@" --cwd-file="$tmp"
+      	      IFS= read -r -d "" cwd < "$tmp"
+      	      [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+      	      rm -f -- "$tmp"
+            }
 
-      # Source the Powerlevel10k theme and configuration.
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source ${config.home.homeDirectory}/.p10k.zsh
+            # Source the Powerlevel10k theme and configuration.
+            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+            source ${config.home.homeDirectory}/.p10k.zsh
     '';
   };
 

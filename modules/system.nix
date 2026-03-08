@@ -1,10 +1,12 @@
 # This file contains general system settings for NixOS WSL2.
 # System configuration, Nix library collection and The unstable channel packages.
-{ config, lib, pkgs, ... }:
-
+{ pkgs, ... }:
 {
   # Enable better Nix commands for interaction. Enable NixOS experimental flakes.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   programs.zsh.enable = true; # Enable in the system to have ZSH as a shell.
 

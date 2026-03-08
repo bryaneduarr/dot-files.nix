@@ -1,6 +1,5 @@
 # This file manages all of the user's packages.
 { pkgs, lib, ... }:
-
 {
   # Install all of the user packages in here.
   home.packages = with pkgs; [
@@ -24,9 +23,10 @@
     jq
     lazygit
     lsof
+    mpv
     neovim
     nil
-    nodejs_24
+    nodejs_25
     nodePackages.npm-check-updates
     openssl
     pnpm
@@ -41,6 +41,7 @@
     wget
     xclip
     yazi
+    ytm-player
     tmux
     tree
   ];

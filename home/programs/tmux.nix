@@ -1,5 +1,4 @@
-{ config, pkgs, tmux-tpm, ... }:
-
+{ tmux-tpm, ... }:
 {
   programs.tmux = {
     enable = true; # Enable tmux program.

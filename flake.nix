@@ -17,6 +17,12 @@
       url = "github:nix-community/NixOS-WSL"; # Pointing to NixOS-WSL GitHub repository.
     };
 
+    # ytm-player - YouTube Music player for the terminal.
+    ytm-player = {
+      url = "github:peternaame-boop/ytm-player"; # Pointing to ytm-player GitHub repository.
+      inputs.nixpkgs.follows = "nixpkgs"; # Ensure ytm-player follows the same version as 'nixpkgs'.
+    };
+
     # Using yazi plugins as custom flake.
     yazi-plugins = {
       url = "github:yazi-rs/plugins"; # Pointing to the yazi plugins GitHub repository.
@@ -36,47 +42,69 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, yazi-plugins, yazi-flavors, tmux-tpm, ... }: {
-    # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux"; # Using the 'x86_64' system architecture.
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nixos-wsl,
+      ytm-player,
+      yazi-plugins,
+      yazi-flavors,
+      tmux-tpm,
+      ...
+    }:
+    {
+      # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux"; # Using the 'x86_64' system architecture.
 
-      # Allow unfree packages in this flake.
-      specialArgs = {
-        inherit nixpkgs;
+        # Allow unfree packages in this flake.
+        specialArgs = {
+          inherit nixpkgs;
+        };
+
+        modules = [
+          # Import modular system configuration here 'modules'.
+          ./modules/system.nix # General system configuration for NixOS.
+          ./modules/users.nix # User specific configuration for the NixOS.
+
+          home-manager.nixosModules.home-manager # Import the home-manager configuration to manage user-specific configurations.
+
+          nixos-wsl.nixosModules.default # Import the main WSL2 flake module for NixOS-WSL system.
+
+          # Configure nixpkgs to allow unfree packages and apply overlays.
+          (_: {
+            nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = [
+              ytm-player.overlays.default
+              # Override ytm-player to skip runtime dependency check
+              (_: prev: {
+                ytm-player = prev.ytm-player.overridePythonAttrs (_: {
+                  dontCheckRuntimeDeps = true;
+                });
+              })
+            ];
+          })
+
+          {
+            wsl.enable = true; # Enable WSL2 in this system configuration.
+            wsl.defaultUser = "bryaneduarr"; # Setting the default user at startup of any instance.
+
+            home-manager = {
+              useGlobalPkgs = true; # Tell home-manager to use the global Nix packages that are available in the system.
+
+              useUserPackages = true; # Enable using user-specific packages with home-manager.
+
+              extraSpecialArgs = {
+                inherit yazi-plugins yazi-flavors tmux-tpm; # Pass to the home-manager custom plugins and configurations.
+              };
+
+              users.bryaneduarr = import ./home/default.nix; # Enable the configuration we have in our system to be used with home-manager.
+            };
+
+            programs.nix-ld.enable = true; # Enables the nix-ld program, which allows running dynamically linked binaries that are not built with Nix by providing a compatible dynamic linker and libraries. This was used for Visual Studio Code to open correctly.
+          }
+        ];
       };
-
-      modules = [
-        # Import modular system configuration here 'modules'.
-        ./modules/system.nix # General system configuration for NixOS.
-	      ./modules/users.nix  # User specific configuration for the NixOS.
-
-        home-manager.nixosModules.home-manager # Import the home-manager configuration to manage user-specific configurations.
-
-        nixos-wsl.nixosModules.default # Import the main WSL2 flake module for NixOS-WSL system.
-
-        # Configure nixpkgs to allow unfree packages and apply overlays.
-        ({ config, ... }: {
-          nixpkgs.config.allowUnfree = true;
-        })
-
-        {
-          wsl.enable = true; # Enable WSL2 in this system configuration.
-          wsl.defaultUser = "bryaneduarr"; # Setting the default user at startup of any instance.
-
-          home-manager.useGlobalPkgs = true; # Tell home-manager to use the global Nix packages that are available in the system.
-
-          home-manager.useUserPackages = true; # Enable using user-specific packages with home-manager.
-
-          home-manager.extraSpecialArgs = {
-            inherit yazi-plugins yazi-flavors tmux-tpm; # Pass to the home-manager custom plugins and configurations.
-          };
-
-          home-manager.users.bryaneduarr = import ./home/default.nix; # Enable the configuration we have in our system to be used with home-manager.
-
-          programs.nix-ld.enable = true; # Enables the nix-ld program, which allows running dynamically linked binaries that are not built with Nix by providing a compatible dynamic linker and libraries. This was used for Visual Studio Code to open correctly.
-        }
-      ];
     };
-  };
 }

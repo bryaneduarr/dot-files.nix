@@ -7,11 +7,11 @@ return {
     "sainnhe/everforest",
     name = "everforest",
     config = function(_, _)
-      vim.cmd.colorscheme("everforest")
+      -- vim.cmd.colorscheme("everforest")
       -- Transparency for the color-scheme.
-      vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+      -- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
       -- Transparency for inactive windows.
-      vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
+      -- vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
     end,
   },
   {
@@ -66,8 +66,8 @@ return {
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      -- require("koda").setup({ transparent = true })
-      -- vim.cmd("colorscheme koda")
+      require("koda").setup({ transparent = true })
+      vim.cmd("colorscheme koda")
 
       -- Set spell highlighting after colorscheme loads.
       vim.api.nvim_set_hl(0, "SpellBad", { underline = true })
