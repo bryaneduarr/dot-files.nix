@@ -30,7 +30,7 @@
       users = [ "bryaneduarr" ];
       commands = [
         {
-          command = "/run/current-system/sw/bin/nixos-rebuild test *";
+          command = "/run/current-system/sw/bin/nixos-rebuild *";
           options = [ "NOPASSWD" ];
         }
       ];

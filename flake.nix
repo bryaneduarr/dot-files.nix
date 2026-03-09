@@ -56,7 +56,7 @@
     {
       # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # Using the 'x86_64' system architecture.
+        system = "aarch64-linux";
 
         # Allow unfree packages in this flake.
         specialArgs = {

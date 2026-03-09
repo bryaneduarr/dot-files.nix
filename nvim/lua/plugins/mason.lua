@@ -23,7 +23,6 @@ return {
         "tailwindcss-language-server", -- tailwindcss
         "lua-language-server", -- lua_ls
         "emmet-ls", -- emmet_ls
-        "clangd",
         "nil", -- Nix
 
         -- Formatters
