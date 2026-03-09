@@ -47,6 +47,10 @@
     tree
   ];
 
+  home.activation.installOpencode = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    ${pkgs.bun}/bin/bun install -g "opencode-ai@latest"
+  '';
+
   home.activation.installBunPackages = lib.hm.dag.entryAfter ["linkGeneration"] ''
     ${pkgs.bun}/bin/bun install -g "tree-sitter-cli"
   '';

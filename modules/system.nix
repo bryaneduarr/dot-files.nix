@@ -18,6 +18,7 @@
   # Install PostgreSQL CLI tools system-wide.
   environment.systemPackages = with pkgs; [
     postgresql
+    engram
   ];
 
   # Enable and configure PostgreSQL service.
@@ -25,6 +26,9 @@
     enable = true;
     package = pkgs.postgresql;
   };
+
+  # ARM64 emulation enable.
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Enable Docker.
   virtualisation.docker.enable = true;
