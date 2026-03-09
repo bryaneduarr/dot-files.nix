@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     awscli2
     bat # A 'cat' clone with highlighting.
+    biome
     btop
     bun
     cargo

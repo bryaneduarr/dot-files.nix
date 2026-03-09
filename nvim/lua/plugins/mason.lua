@@ -31,6 +31,7 @@ return {
         "prettier", -- js/ts/html/css formatter (for monorepos).
         "prettierd", -- js/ts/html/css formatter (daemon version).
         "eslint_d", -- js/ts linter.
+        "biome", -- js/ts linter and formatter.
         "clang-format",
 
         -- Linters
