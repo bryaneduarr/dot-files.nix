@@ -26,6 +26,9 @@
     package = pkgs.postgresql;
   };
 
+  # ARM64 emulation enable.
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Enable Docker.
   virtualisation.docker.enable = true;
 
