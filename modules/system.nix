@@ -27,9 +27,8 @@
     package = pkgs.postgresql;
   };
 
-  # ARM64 emulation enable. Only enable when the host is not aarch64.
-  # Use builtins.currentSystem so this works even when `lib` isn't passed in.
-  boot.binfmt.emulatedSystems = if builtins.currentSystem != "aarch64-linux" then [ "aarch64-linux" ] else [];
+  # ARM64 emulation enable.
+  # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Enable Docker.
   virtualisation.docker.enable = true;
