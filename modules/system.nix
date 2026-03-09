@@ -1,6 +1,6 @@
 # This file contains general system settings for NixOS WSL2.
 # System configuration, Nix library collection and The unstable channel packages.
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Enable better Nix commands for interaction. Enable NixOS experimental flakes.
   nix.settings.experimental-features = [
@@ -18,6 +18,7 @@
   # Install PostgreSQL CLI tools system-wide.
   environment.systemPackages = with pkgs; [
     postgresql
+    engram
   ];
 
   # Enable and configure PostgreSQL service.
@@ -27,7 +28,11 @@
   };
 
   # ARM64 emulation enable.
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  # Only enable emulated aarch64 when the host platform is different from aarch64.
+  # The binfmt registration code asserts that you must not register the same
+  # system as the host (it's unnecessary and triggers an assertion), so keep
+  # this conditional to avoid that failure when building on aarch64 hosts.
+  boot.binfmt.emulatedSystems = lib.optional (pkgs.stdenv.hostPlatform.system != "aarch64-linux") [ "aarch64-linux" ];
 
   # Enable Docker.
   virtualisation.docker.enable = true;

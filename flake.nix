@@ -40,6 +40,11 @@
       url = "github:tmux-plugins/tpm"; # Pointing to the TPM GitHub repository.
       flake = false; # This repository does not have a flake.nix file.
     };
+
+    # Engram persistent memory flake.
+    engram = {
+      url = "path:./flakes/engram"; # Local engram flake.
+    };
   };
 
   outputs =
@@ -51,6 +56,7 @@
       yazi-plugins,
       yazi-flavors,
       tmux-tpm,
+      engram,
       ...
     }:
     {
@@ -82,6 +88,10 @@
                 ytm-player = prev.ytm-player.overridePythonAttrs (_: {
                   dontCheckRuntimeDeps = true;
                 });
+              })
+              # Engram persistent memory overlay, the one from the flake.
+              (final: _: {
+                engram = engram.packages.${final.system}.default;
               })
             ];
           })
