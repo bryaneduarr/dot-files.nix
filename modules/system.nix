@@ -17,7 +17,7 @@
 
   # Install PostgreSQL CLI tools system-wide.
   environment.systemPackages = with pkgs; [
-    postgresql
+    postgresql_18
     engram
   ];
 
