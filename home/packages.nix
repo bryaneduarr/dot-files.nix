@@ -13,6 +13,7 @@
     cmake
     curl
     docker
+    deadnix
     eza # Modern replacement for ls.
     fastfetch
     fd
@@ -27,6 +28,7 @@
     mpv
     neovim
     nil
+    nixfmt
     nodejs_25
     nodePackages.npm-check-updates
     openssh
@@ -38,6 +40,7 @@
     ripgrep
     socat
     ssm-session-manager-plugin # Session manager plugin for aws.
+    statix
     uv
     valgrind
     wget
