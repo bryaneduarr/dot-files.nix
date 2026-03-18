@@ -17,7 +17,8 @@
 
   # Install PostgreSQL CLI tools system-wide.
   environment.systemPackages = with pkgs; [
-    postgresql
+    postgresql_18
+    engram
   ];
 
   # Enable and configure PostgreSQL service.
@@ -26,6 +27,12 @@
     package = pkgs.postgresql;
   };
 
+  # Enable SSH.
+  services.openssh.enable = true;
+
+  # Enable Tailscale.
+  services.tailscale.enable = true;
+  
   # ARM64 emulation enable. Only enable when the host is not aarch64.
   # Use builtins.currentSystem so this works even when `lib` isn't passed in.
   boot.binfmt.emulatedSystems = if builtins.currentSystem != "aarch64-linux" then [ "aarch64-linux" ] else [];
