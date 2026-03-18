@@ -59,15 +59,10 @@
       engram,
       ...
     }:
-    let
-      system =
-        nixpkgs.legacyPackages.x86_64-linux.stdenv.hostPlatform.system
-          or nixpkgs.legacyPackages.aarch64-linux.stdenv.hostPlatform.system;
-    in
     {
       # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "aarch64-linux"; # Change this to x86_64-linux for that architecture.
 
         # Allow unfree packages in this flake.
         specialArgs = {
