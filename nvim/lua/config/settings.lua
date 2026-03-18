@@ -55,13 +55,15 @@ vim.opt.termguicolors = true
 -- Enable spell checking functionality, automatically underlines misspelled words as you type.
 vim.opt.spell = true
 
--- Set spell checking languages to Spanish and English, Neovim will use dictionaries for both languages to check spelling.
-vim.opt.spelllang = { "en_us", "es" }
+vim.opt.spelllang = { "en_us" }
 
-vim.opt.spellfile = {
-  vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
-  vim.fn.stdpath("config") .. "/spell/es.utf-8.add",
-}
+if vim.fn.filereadable(vim.fn.stdpath("config") .. "/spell/es.utf-8.spl") == 1 then
+  vim.opt.spelllang = { "en_us", "es" }
+  vim.opt.spellfile = {
+    vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
+    vim.fn.stdpath("config") .. "/spell/es.utf-8.add",
+  }
+end
 
 -- Options for completion menu
 vim.opt.completeopt = { "menuone", "popup", "noinsert" }
