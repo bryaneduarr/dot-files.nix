@@ -29,6 +29,7 @@
     nil
     nodejs_25
     nodePackages.npm-check-updates
+    openssh
     openssl
     pnpm
     posting
@@ -43,15 +44,26 @@
     xclip
     yazi
     ytm-player
+    tailscale
     tmux
     tree
   ];
 
-  home.activation.installOpencode = lib.hm.dag.entryAfter ["linkGeneration"] ''
-    ${pkgs.bun}/bin/bun install -g "opencode-ai@latest"
-  '';
+  home.activation = {
+    installOpencode = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      ${pkgs.bun}/bin/bun install -g "opencode-ai@latest"
+    '';
 
-  home.activation.installBunPackages = lib.hm.dag.entryAfter ["linkGeneration"] ''
-    ${pkgs.bun}/bin/bun install -g "tree-sitter-cli"
-  '';
+    installCopilotCLI = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      ${pkgs.bun}/bin/bun install -g "@github/copilot"
+    '';
+
+    installCodexCLI = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      ${pkgs.bun}/bin/bun install -g "@openai/codex"
+    '';
+
+    installBunPackages = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      ${pkgs.bun}/bin/bun install -g "tree-sitter-cli"
+    '';
+  };
 }

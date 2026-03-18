@@ -30,6 +30,12 @@
   # ARM64 emulation enable.
   # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  # Enable SSH.
+  services.openssh.enable = true;
+
+  # Enable Tailscale.
+  services.tailscale.enable = true;
+
   # Enable Docker.
   virtualisation.docker.enable = true;
 
