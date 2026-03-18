@@ -59,10 +59,15 @@
       engram,
       ...
     }:
+    let
+      system =
+        nixpkgs.legacyPackages.x86_64-linux.stdenv.hostPlatform.system
+          or nixpkgs.legacyPackages.aarch64-linux.stdenv.hostPlatform.system;
+    in
     {
       # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # Using the 'x86_64' system architecture.
+        inherit system;
 
         # Allow unfree packages in this flake.
         specialArgs = {
@@ -91,7 +96,7 @@
               })
               # Engram persistent memory overlay, the one from the flake.
               (final: _: {
-                engram = engram.packages.${final.system}.default;
+                engram = engram.packages.${final.stdenv.hostPlatform.system}.default;
               })
             ];
           })

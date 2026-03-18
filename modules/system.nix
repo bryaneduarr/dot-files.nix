@@ -1,6 +1,6 @@
 # This file contains general system settings for NixOS WSL2.
 # System configuration, Nix library collection and The unstable channel packages.
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Enable better Nix commands for interaction. Enable NixOS experimental flakes.
   nix.settings.experimental-features = [
@@ -33,9 +33,8 @@
   # Enable Tailscale.
   services.tailscale.enable = true;
   
-  # ARM64 emulation enable. Only enable when the host is not aarch64.
-  # Use builtins.currentSystem so this works even when `lib` isn't passed in.
-  boot.binfmt.emulatedSystems = if builtins.currentSystem != "aarch64-linux" then [ "aarch64-linux" ] else [];
+  # ARM64 emulation enable. Only enable when the host is not aarch64. Only enable if you want "emulation of aarch64".
+  #  boot.binfmt.emulatedSystems = if pkgs.stdenv.hostPlatform.system != "aarch64-linux" then [ "aarch64-linux" ] else [];
 
   # Enable Docker.
   virtualisation.docker.enable = true;
