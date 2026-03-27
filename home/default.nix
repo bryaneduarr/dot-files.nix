@@ -12,6 +12,8 @@ _: {
     ./programs/nvim.nix
     ./programs/yazi.nix
     ./programs/zsh.nix
+    ./programs/fish.nix
     ./programs/tmux.nix
+    ./programs/starship.nix
   ];
 }

@@ -15,7 +15,7 @@
         group = "bryaneduarr"; # The group will be the same as the name.
         home = "/home/bryaneduarr"; # Home directory of the user.
         createHome = true; # Create a home directory if it doesn't exist.
-        shell = pkgs.zsh; # Set the default shell for this user to ZSH.
+        shell = pkgs.fish; # Set the default shell for this user to fish.
       };
     };
 

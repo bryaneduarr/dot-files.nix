@@ -9,6 +9,7 @@
   ];
 
   programs.zsh.enable = true; # Enable in the system to have ZSH as a shell.
+  programs.fish.enable = true; # Enable fish shell at the system level.
 
   security.sudo.enable = true; # Enable sudo command in the system.
   security.sudo.wheelNeedsPassword = true; # Every wheel user 'with sudo privileges' will be prompted to use the password.
@@ -32,7 +33,7 @@
 
   # Enable Tailscale.
   services.tailscale.enable = true;
-  
+
   # ARM64 emulation enable. Only enable when the host is not aarch64. Only enable if you want "emulation of aarch64".
   #  boot.binfmt.emulatedSystems = if pkgs.stdenv.hostPlatform.system != "aarch64-linux" then [ "aarch64-linux" ] else [];
 
