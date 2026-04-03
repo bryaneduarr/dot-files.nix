@@ -35,11 +35,11 @@
         disabled = false;
         style = "fg:color_orange";
         format = "([$all_status]($style))";
-        modified = "*";
-        deleted = "*";
-        renamed = "*";
-        stashed = "*";
-        untracked = "*";
+        modified = "";
+        deleted = "";
+        renamed = "";
+        stashed = "";
+        untracked = "";
         staged = "";
         conflicted = "";
       };

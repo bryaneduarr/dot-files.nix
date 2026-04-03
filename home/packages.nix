@@ -30,7 +30,6 @@
     nil
     nixfmt
     nodejs_25
-    nodePackages.npm-check-updates
     openssh
     openssl
     pnpm
@@ -67,6 +66,7 @@
 
     installBunPackages = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
       ${pkgs.bun}/bin/bun install -g "tree-sitter-cli"
+      ${pkgs.bun}/bin/bun install -g "npm-check-updates"
     '';
   };
 }
