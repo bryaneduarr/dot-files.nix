@@ -20,7 +20,6 @@
   environment.systemPackages = with pkgs; [
     postgresql_18
     engram
-    gentle-ai
   ];
 
   environment.etc."os-release".text = ''

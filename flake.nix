@@ -57,7 +57,6 @@
     let
       engramOverlay = final: _: {
         engram = final.callPackage ./pkgs/engram { };
-        gentle-ai = final.callPackage ./pkgs/gentle-ai { };
       };
     in
     {
