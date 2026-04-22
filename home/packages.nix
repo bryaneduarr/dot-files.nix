@@ -7,6 +7,7 @@
     bat # A 'cat' clone with highlighting.
     biome
     btop
+    bubblewrap
     bun
     cargo
     clang-tools
@@ -47,6 +48,7 @@
     yazi
     ytm-player
     tailscale
+    terraform
     tmux
     tree
   ];
@@ -67,6 +69,8 @@
     installBunPackages = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
       ${pkgs.bun}/bin/bun install -g "tree-sitter-cli"
       ${pkgs.bun}/bin/bun install -g "npm-check-updates"
+      ${pkgs.bun}/bin/bun install -g "agent-browser"
+      ${pkgs.bun}/bin/bun install -g "skills"
     '';
   };
 }

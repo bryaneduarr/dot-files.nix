@@ -41,10 +41,6 @@
       flake = false; # This repository does not have a flake.nix file.
     };
 
-    # Engram persistent memory flake.
-    engram = {
-      url = "path:./flakes/engram"; # Local engram flake.
-    };
   };
 
   outputs =
@@ -56,9 +52,14 @@
       yazi-plugins,
       yazi-flavors,
       tmux-tpm,
-      engram,
       ...
     }:
+    let
+      engramOverlay = final: _: {
+        engram = final.callPackage ./pkgs/engram { };
+        gentle-ai = final.callPackage ./pkgs/gentle-ai { };
+      };
+    in
     {
       # This configuration is named 'nixos' and follows the standard 'nixpkgs' library to build the NixOS system.
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -89,10 +90,8 @@
                   dontCheckRuntimeDeps = true;
                 });
               })
-              # Engram persistent memory overlay, the one from the flake.
-              (final: _: {
-                engram = engram.packages.${final.stdenv.hostPlatform.system}.default;
-              })
+              # Engram persistent memory package from the local repository.
+              engramOverlay
             ];
           })
 

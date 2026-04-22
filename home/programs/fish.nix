@@ -47,7 +47,11 @@
 
     functions = {
       nrs = ''
-        sudo nixos-rebuild switch --flake ~/dot-files.nix/#nixos $argv
+        sudo nixos-rebuild switch --flake path:$HOME/dot-files.nix#nixos $argv
+      '';
+
+      nfu = ''
+        $HOME/dot-files.nix/scripts/update-all.sh $argv
       '';
     };
   };

@@ -125,16 +125,22 @@ nix-config/
 
 ### Updating the System
 
-The configuration includes an `update` function. Simply run:
+The configuration includes an `nrs` function for rebuild-only changes:
 
 ```shell
-update
+nrs
 ```
 
 This is equivalent to:
 
 ```shell
-sudo nixos-rebuild switch --flake ~/dot-files.nix#nixos
+sudo nixos-rebuild switch --flake path:$HOME/dot-files.nix#nixos
+```
+
+To update the root flake inputs, refresh the latest stable `engram` release metadata, and rebuild in one step, run:
+
+```shell
+nfu
 ```
 
 ### Adding New Packages

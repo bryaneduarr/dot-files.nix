@@ -20,7 +20,19 @@
   environment.systemPackages = with pkgs; [
     postgresql_18
     engram
+    gentle-ai
   ];
+
+  environment.etc."os-release".text = ''
+    NAME="NixOS"
+    VERSION="26.05 (Yarara)"
+    ID=nixos
+    ID_LIKE="ubuntu debian"
+    VERSION_ID="26.05"
+    PRETTY_NAME="NixOS 26.05 (Yarara)"
+    HOME_URL="https://nixos.org/"
+    BUG_REPORT_URL="https://github.com/NixOS/nixpkgs/issues"
+  '';
 
   # Enable and configure PostgreSQL service.
   services.postgresql = {

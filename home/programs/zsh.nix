@@ -77,7 +77,11 @@
 
             # Function to update and rebuild the system using flakes.
             nrs() {
-              sudo nixos-rebuild switch --flake ~/dot-files.nix/#nixos "$@"
+              sudo nixos-rebuild switch --flake path:$HOME/dot-files.nix#nixos "$@"
+            }
+
+            nfu() {
+              $HOME/dot-files.nix/scripts/update-all.sh "$@"
             }
 
             # Set the default editor to Neovim.
