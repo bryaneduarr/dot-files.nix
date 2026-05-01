@@ -78,7 +78,6 @@
     ffmpegthumbnailer # for generating video thumbnails.
     imagemagick # a suite for image manipulation.
     poppler-utils # PDF utilities (e.g., pdftotext).
-    mpv # a media player.
     p7zip # 7z archive tool.
     unrar # tool for extracting RAR archives.
     unzip # tool for extracting ZIP archives.

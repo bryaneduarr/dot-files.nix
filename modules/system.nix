@@ -1,6 +1,6 @@
 # This file contains general system settings for NixOS WSL2.
 # System configuration, Nix library collection and The unstable channel packages.
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   # Enable better Nix commands for interaction. Enable NixOS experimental flakes.
   nix.settings.experimental-features = [

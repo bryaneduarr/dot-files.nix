@@ -17,12 +17,6 @@
       url = "github:nix-community/NixOS-WSL"; # Pointing to NixOS-WSL GitHub repository.
     };
 
-    # ytm-player - YouTube Music player for the terminal.
-    ytm-player = {
-      url = "github:peternaame-boop/ytm-player"; # Pointing to ytm-player GitHub repository.
-      inputs.nixpkgs.follows = "nixpkgs"; # Ensure ytm-player follows the same version as 'nixpkgs'.
-    };
-
     # Using yazi plugins as custom flake.
     yazi-plugins = {
       url = "github:yazi-rs/plugins"; # Pointing to the yazi plugins GitHub repository.
@@ -48,7 +42,6 @@
       nixpkgs,
       home-manager,
       nixos-wsl,
-      ytm-player,
       yazi-plugins,
       yazi-flavors,
       tmux-tpm,
@@ -82,13 +75,6 @@
           (_: {
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [
-              ytm-player.overlays.default
-              # Override ytm-player to skip runtime dependency check
-              (_: prev: {
-                ytm-player = prev.ytm-player.overridePythonAttrs (_: {
-                  dontCheckRuntimeDeps = true;
-                });
-              })
               # Engram persistent memory package from the local repository.
               engramOverlay
             ];

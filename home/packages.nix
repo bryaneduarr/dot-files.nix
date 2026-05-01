@@ -26,7 +26,6 @@
     jq
     lazygit
     lsof
-    mpv
     neovim
     nil
     nixfmt
@@ -46,7 +45,6 @@
     wget
     xclip
     yazi
-    ytm-player
     tailscale
     terraform
     tmux
