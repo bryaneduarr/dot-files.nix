@@ -31,7 +31,7 @@ The script will:
 
 ### For Ubuntu with home-manager:
 
-```shell
+```bash
 # Copy configuration files
 cp -r ./system-configs/x64/* ~/.config/home-manager/
 cp ./home/.p10k.zsh ~/.config/home-manager/
@@ -42,7 +42,7 @@ home-manager switch
 
 ### For NixOS:
 
-```shell
+```bash
 # Apply flake configuration
 sudo nixos-rebuild switch --flake .#nixos
 ```
