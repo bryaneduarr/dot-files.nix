@@ -2,81 +2,69 @@
 set -euo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-release_file="$repo_root/pkgs/engram/release.json"
-api_url="https://api.github.com/repos/Gentleman-Programming/engram/releases/latest"
+release_dir="$repo_root/pkgs/engram"
+release_file="$release_dir/release.json"
+pkg_name="gentle-engram"
 
-for cmd in curl jq nix; do
+for cmd in curl jq nix npm; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
     printf 'Missing required command: %s\n' "$cmd" >&2
     exit 1
   fi
 done
 
-release_json="$(curl -fsSL "$api_url")"
-version="$(printf '%s' "$release_json" | jq -r '.tag_name | sub("^v"; "")')"
+npm_json="$(curl -fsSL "https://registry.npmjs.org/$pkg_name/latest")"
+version="$(printf '%s' "$npm_json" | jq -r '.version')"
 
 if [ -z "$version" ] || [ "$version" = "null" ]; then
-  printf 'Failed to resolve the latest stable engram release.\n' >&2
+  printf 'Failed to resolve the latest %s version.\n' "$pkg_name" >&2
   exit 1
 fi
 
-checksums_url="https://github.com/Gentleman-Programming/engram/releases/download/v${version}/checksums.txt"
-checksums="$(curl -fsSL "$checksums_url")"
+tarball_url="https://registry.npmjs.org/$pkg_name/-/$pkg_name-${version}.tgz"
+tmp_dir="$(mktemp -d)"
+trap 'rm -rf "$tmp_dir"' EXIT
 
-asset_hash() {
-  local asset_name="$1"
-  local hex_hash
+tarball="$tmp_dir/pkg.tgz"
+curl -fsSLo "$tarball" "$tarball_url"
 
-  hex_hash="$(printf '%s\n' "$checksums" | awk -v asset="$asset_name" '$2 == asset { print $1 }')"
+src_hash="$(nix hash file --base16 --type sha256 "$tarball" | xargs nix hash convert --hash-algo sha256 --to sri)"
 
-  if [ -z "$hex_hash" ]; then
-    printf 'Missing checksum for asset: %s\n' "$asset_name" >&2
-    exit 1
-  fi
+tar xzf "$tarball" -C "$tmp_dir"
+cp "$tmp_dir/package/package.json" "$tmp_dir/"
 
-  nix hash convert --hash-algo sha256 --to sri "$hex_hash"
+cd "$tmp_dir/package"
+npm install --package-lock-only 2>&1 | tail -2
+cd "$tmp_dir"
+cp package/package-lock.json .
+
+cat > "$tmp_dir/compute-hash.nix" << 'EOF'
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.fetchNpmDeps {
+  src = ./.;
+  hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 }
+EOF
 
-amd64_linux_asset="engram_${version}_linux_amd64.tar.gz"
-arm64_linux_asset="engram_${version}_linux_arm64.tar.gz"
-amd64_darwin_asset="engram_${version}_darwin_amd64.tar.gz"
-arm64_darwin_asset="engram_${version}_darwin_arm64.tar.gz"
+npm_deps_hash="$(
+  nix build -f "$tmp_dir/compute-hash.nix" 2>&1 | grep -oP 'got:\s*\K\S+' || true
+)"
+
+if [ -z "$npm_deps_hash" ]; then
+  printf 'Failed to compute npmDepsHash.\n' >&2
+  exit 1
+fi
 
 tmp_file="$(mktemp)"
-trap 'rm -f "$tmp_file"' EXIT
+trap 'rm -f "$tmp_file"; rm -rf "$tmp_dir"' EXIT
 
-jq \
+jq -n \
   --arg version "$version" \
-  --arg amd64_linux_asset "$amd64_linux_asset" \
-  --arg arm64_linux_asset "$arm64_linux_asset" \
-  --arg amd64_darwin_asset "$amd64_darwin_asset" \
-  --arg arm64_darwin_asset "$arm64_darwin_asset" \
-  --arg amd64_linux_hash "$(asset_hash "$amd64_linux_asset")" \
-  --arg arm64_linux_hash "$(asset_hash "$arm64_linux_asset")" \
-  --arg amd64_darwin_hash "$(asset_hash "$amd64_darwin_asset")" \
-  --arg arm64_darwin_hash "$(asset_hash "$arm64_darwin_asset")" \
-  '
-    .version = $version
-    | .platforms = {
-        "aarch64-darwin": {
-          url: "https://github.com/Gentleman-Programming/engram/releases/download/v\($version)/\($arm64_darwin_asset)",
-          hash: $arm64_darwin_hash
-        },
-        "aarch64-linux": {
-          url: "https://github.com/Gentleman-Programming/engram/releases/download/v\($version)/\($arm64_linux_asset)",
-          hash: $arm64_linux_hash
-        },
-        "x86_64-darwin": {
-          url: "https://github.com/Gentleman-Programming/engram/releases/download/v\($version)/\($amd64_darwin_asset)",
-          hash: $amd64_darwin_hash
-        },
-        "x86_64-linux": {
-          url: "https://github.com/Gentleman-Programming/engram/releases/download/v\($version)/\($amd64_linux_asset)",
-          hash: $amd64_linux_hash
-        }
-      }
-  ' \
-  "$release_file" > "$tmp_file"
+  --arg srcHash "$src_hash" \
+  --arg npmDepsHash "$npm_deps_hash" \
+  '{ version: $version, srcHash: $srcHash, npmDepsHash: $npmDepsHash }' \
+  > "$tmp_file"
 
 mv "$tmp_file" "$release_file"
+cp "$tmp_dir/package-lock.json" "$release_dir/"
 printf 'Updated engram release metadata to %s\n' "$version"

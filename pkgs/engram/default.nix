@@ -1,40 +1,39 @@
 {
-  stdenvNoCC,
+  buildNpmPackage,
   fetchurl,
+  fetchNpmDeps,
   lib,
 }:
 let
   release = builtins.fromJSON (builtins.readFile ./release.json);
-  system = stdenvNoCC.hostPlatform.system;
-  asset =
-    release.platforms.${system}
-      or (throw "engram is not packaged for ${system} in pkgs/engram/release.json");
 in
-stdenvNoCC.mkDerivation {
+buildNpmPackage {
   pname = "engram";
   version = release.version;
 
   src = fetchurl {
-    url = asset.url;
-    hash = asset.hash;
+    url = "https://registry.npmjs.org/gentle-engram/-/gentle-engram-${release.version}.tgz";
+    hash = release.srcHash;
   };
 
-  dontConfigure = true;
-  dontBuild = true;
-  sourceRoot = ".";
+  npmDeps = fetchNpmDeps {
+    src = ./.;
+    hash = release.npmDepsHash;
+  };
 
-  installPhase = ''
-    runHook preInstall
-    install -Dm755 engram "$out/bin/engram"
-    runHook postInstall
+  npmInstallFlags = [ "--production" ];
+
+  postPatch = ''
+    cp ${./package-lock.json} package-lock.json
   '';
 
+  dontNpmBuild = true;
+
   meta = {
-    description = "Persistent memory for AI coding agents";
+    description = "Persistent memory for Pi agents";
     homepage = "https://github.com/Gentleman-Programming/engram";
     license = lib.licenses.mit;
-    mainProgram = "engram";
-    platforms = builtins.attrNames release.platforms;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    mainProgram = "pi-engram";
+    platforms = lib.platforms.all;
   };
 }
