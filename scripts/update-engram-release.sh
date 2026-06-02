@@ -6,7 +6,7 @@ release_dir="$repo_root/pkgs/engram"
 release_file="$release_dir/release.json"
 pkg_name="gentle-engram"
 
-for cmd in curl jq nix npm; do
+for cmd in curl jq nix; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
     printf 'Missing required command: %s\n' "$cmd" >&2
     exit 1
@@ -33,10 +33,9 @@ src_hash="$(nix hash file --base16 --type sha256 "$tarball" | xargs nix hash con
 tar xzf "$tarball" -C "$tmp_dir"
 cp "$tmp_dir/package/package.json" "$tmp_dir/"
 
-cd "$tmp_dir/package"
-npm install --package-lock-only 2>&1 | tail -2
-cd "$tmp_dir"
-cp package/package-lock.json .
+# Use the existing package-lock.json from the repo which has proper integrity hashes.
+# Regenerating it with npm loses integrity for nested shrinkwrapped dependencies.
+cp "$release_dir/package-lock.json" "$tmp_dir/"
 
 cat > "$tmp_dir/compute-hash.nix" << 'EOF'
 { pkgs ? import <nixpkgs> {} }:

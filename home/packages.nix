@@ -29,7 +29,7 @@
     neovim
     nil
     nixfmt
-    nodejs_25
+    nodejs_latest
     openssh
     openssl
     pnpm
