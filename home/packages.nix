@@ -1,10 +1,24 @@
-# This file manages all of the user's packages.
 { pkgs, lib, ... }:
+let
+  activationPath = lib.makeBinPath [
+    pkgs.bun
+    pkgs.nodejs_latest
+    pkgs.coreutils
+    pkgs.bash
+    pkgs.git
+  ];
+
+  bunGlobalInstall = packages: ''
+    export PATH="${activationPath}:$PATH"
+    export BUN_INSTALL="$HOME/.bun"
+
+    ${lib.concatMapStringsSep "\n" (pkg: ''${pkgs.bun}/bin/bun install -g "${pkg}"'') packages}
+  '';
+in
 {
-  # Install all of the user packages in here.
   home.packages = with pkgs; [
     awscli2
-    bat # A 'cat' clone with highlighting.
+    bat
     biome
     btop
     bubblewrap
@@ -15,7 +29,7 @@
     curl
     docker
     deadnix
-    eza # Modern replacement for ls.
+    eza
     fastfetch
     fd
     fzf
@@ -38,7 +52,7 @@
     redis
     ripgrep
     socat
-    ssm-session-manager-plugin # Session manager plugin for aws.
+    ssm-session-manager-plugin
     statix
     uv
     valgrind
@@ -52,23 +66,14 @@
   ];
 
   home.activation = {
-    installOpencode = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      ${pkgs.bun}/bin/bun install -g "opencode-ai@latest"
-    '';
-
-    installCopilotCLI = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      ${pkgs.bun}/bin/bun install -g "@github/copilot"
-    '';
-
-    installCodexCLI = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      ${pkgs.bun}/bin/bun install -g "@openai/codex"
-    '';
-
-    installBunPackages = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      ${pkgs.bun}/bin/bun install -g "tree-sitter-cli"
-      ${pkgs.bun}/bin/bun install -g "npm-check-updates"
-      ${pkgs.bun}/bin/bun install -g "agent-browser"
-      ${pkgs.bun}/bin/bun install -g "skills"
-    '';
+    installBunGlobalPackages = lib.hm.dag.entryAfter [ "linkGeneration" ] (bunGlobalInstall [
+      "opencode-ai@latest"
+      "@github/copilot"
+      "@openai/codex"
+      "tree-sitter-cli"
+      "npm-check-updates"
+      "agent-browser"
+      "skills"
+    ]);
   };
 }
