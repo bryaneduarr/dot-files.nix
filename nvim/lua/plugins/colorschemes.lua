@@ -17,12 +17,12 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    config = function(_, _)
+    opts = {
+      transparent_background = true,
+    },
+    config = function(_, opts)
+      require("catppuccin").setup(opts)
       vim.cmd.colorscheme("catppuccin-mocha")
-      -- Transparency for the color-scheme.
-      vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
-      -- Transparency for inactive windows.
-      vim.cmd([[hi NormalNC guibg=NONE ctermbg=NONE]])
     end,
   },
   {

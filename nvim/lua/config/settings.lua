@@ -94,3 +94,10 @@ vim.o.foldcolumn = "1"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.wo.foldtext = ""
+
+
+-- Diagonal lines in diff view for deleted hunks.
+vim.opt.fillchars:append { diff = "╱" }
+
+-- Never show the native tabline (avoids the bufferline appearing in diffview/neogit).
+vim.opt.showtabline = 0
