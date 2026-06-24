@@ -70,6 +70,7 @@ in
       "opencode-ai@latest"
       "@github/copilot"
       "@openai/codex"
+      "@earendil-works/pi-coding-agent"
       "tree-sitter-cli"
       "npm-check-updates"
       "agent-browser"

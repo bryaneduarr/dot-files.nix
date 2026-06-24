@@ -18,6 +18,11 @@
       # Enable mouse.
       set -g mouse on
 
+      # Extended keys
+      set -g extended-keys on
+
+      set -g extended-keys-format csi-u
+
       # Escape time.
       set -g escape-time 0
 
